@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog" />
+  <meta name="description" content="Powersee 的个人博客" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  <link rel="dns-prefetch" href="https://at.alicdn.com">
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.css">
+	<link rel="shortcut icon" href="/blog.svg" title="Favicon">
+	<title>关于迅雷赚钱宝二代一些小记录</title>
+  
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Powersee的博客" type="application/atom+xml">
+</head>
+<body>
+  <canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Powersee的博客</a>
+  <a class="face-img" href="/">
+    <!-- <img src="/./img/powersee.jpeg"> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+      <rect width="100%" height="100%" fill="black"></rect>
+      <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">Power</text>
+        <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">_see</text>
+    </svg>
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    关于迅雷赚钱宝二代一些小记录
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2021-03-01T12:59:41.000Z" itemprop="datePublished">2021-03-01</time>
+      </li>
+      <li>
+        
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <p>最近买了台 赚钱宝2代，闲鱼买的，30块包邮，有包装，电源适配器，网线。</p>
+<p><img src="/img/2021/2021-03-01_21-01-42.jpg" alt="2021-03-01_21-01-42"></p>
+<p>买这个干什么呢？拿它来赚钱吗？并不是，现在这个好像赚不了钱了吧，不然别人也不会卖。主要是看到恩山上面有刷机的帖子，想买来刷机玩玩。</p>
+<p>论坛帖子：<a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-4063295-1-1.html">https://www.right.com.cn/forum/thread-4063295-1-1.html</a></p>
+<p>刷机很简单，下载镜像——<strong>二代线刷无需算号只需改mac后插盘就用.img</strong></p>
+<p>然后使用 usb burning tool 导入，赚钱宝先用双公头 usb 线连接电脑，然后用卡针或者牙签，捅住复位键，再插电源。软件应该就能识别到了，然后就可以点【开始】刷机</p>
+<p><img src="/img/2021/2021-03-01_23-17-35.jpg" alt="2021-03-01_23-17-35"></p>
+<p>完成后拔电源、双公头 usb，再插上网线、电源开机。等待路由器出现 IP，然后就可以通过 ssh 连接上去。</p>
+<p><img src="/img/2021/2021-03-01_21-05-16.jpg" alt="2021-03-01_21-05-16"></p>
+<p>原本以为是 armbian ，刷完才发现，原来是 openwrt，而且精简得不能再精简的，很多命令行工具都没有。里面自带有甜糖，一开机就跑，有兴趣可以去原帖看看。</p>
+<p>我对这个是没什么兴趣，那就把它拆开看看吧。网上一搜好像没有拆机的文章，那只能自己研究了。耗费很长很长的时间，终于把机器拆开了，也拆坏了。</p>
+<p><img src="/img/2021/2021-03-01_23-23-40.jpg" alt="2021-03-01_23-23-40"></p>
+<p>通过这伤痕累累的外壳，也可以想象我拆得好辛苦。</p>
+<p><img src="/img/2021/2021-03-01_23-24-19.jpg" alt="2021-03-01_23-24-19"></p>
+<p>而且主板上的一颗电容也被我弄掉下来了，现在机器无法开机了。</p>
+<p><img src="/img/2021/2021-03-01_23-24-24.jpg" alt="2021-03-01_23-24-24"></p>
+<p>背面长这样，可以焊接排针，用于 ttl 。</p>
+<p><img src="/img/2021/2021-03-01_23-24-31.jpg" alt="2021-03-01_23-24-31"></p>
+<p>正确的拆法应该是，用吹风筒吹机器的正面加热，然后取下上面比较薄的一层壳，应该就能看到 4 颗螺丝，拧开才能取下外壳。而我这种拆法是直接大力出奇迹，在 4 颗螺丝拧紧的情况下，强行将外壳掰开。</p>
+<p>希望后人引以为戒。</p>
+
+      </div>
+        <div class="support-author">
+          <p>博客链接:
+          <a href="https://powersee.github.io/" target="_blank">https://powersee.github.io/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+          <p>备份博客:
+          <a href="https://blog.powersee.top/" target="_blank">https://blog.powersee.top/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+
+        </div>
+      </div>
+    </div>
+   </div>
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a target="_blank" rel="noopener" href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a target="_blank" rel="noopener" href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2018-2023 </p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = ''.split(',');
+  var canConsole = 'false';
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+
+}(consoleConfig));
+
+// js 也放到 腾讯云 cos
+</script><script type="text/javascript" src="https://blog-img-1259157239.cos.ap-guangzhou.myqcloud.com/js/main.js"></script>
+<script type="text/javascript" src="/js/my.js"></script>
+
+  <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+</body>
+</html>
