@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Powersee的博客</title>
+  
+  
+  <link href="https://powersee.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://powersee.github.io/"/>
+  <updated>2023-05-14T02:45:03.158Z</updated>
+  <id>https://powersee.github.io/</id>
+  
+  <author>
+    <name>powersee</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>威联通 qnap 使用 NFS 共享文件</title>
+    <link href="https://powersee.github.io/2023/05/qnap-nfs/"/>
+    <id>https://powersee.github.io/2023/05/qnap-nfs/</id>
+    <published>2023-05-13T16:29:37.000Z</published>
+    <updated>2023-05-14T02:45:03.158Z</updated>
+    
+    <content type="html"><![CDATA[<p>在威联通的控制台里面，提供4种文件共享方式：Win&#x2F;Mac&#x2F;NFS&#x2F;WebDAV</p><p>其中 Windows 的 smb 是最通用，我之前也是一直使用 smb 而已，毕竟 win 和 mac 都能用。</p><p>最近我想研究一下怎么开启 nfs 服务，让我的芝杜播放器可以访问威联通里的视频。</p><p>首先到控制台里面，「激活NFS v2&#x2F;v3服务」，「激活NFS v4服务」两个勾我都打上了。之后再点击一下底部的「应用」。</p><p><img src="/img/2023/qnap-nfs-enable.png.webp" alt="qnap-nfs-enable.png"></p><p>这么多版本，那它们的区别是什么呢？我到网上搜索一番。</p><p>之后找到了一篇文章：<a href="https://blog.csdn.net/qq_20332637/article/details/107796651">NFS各个版本之间的比较_nfsv3和nfsv4的区别</a></p><table><thead><tr><th>编号</th><th>版本</th><th>RFC</th><th>时间</th><th>页数</th></tr></thead><tbody><tr><td>1</td><td>NFSv2</td><td>rfc1094</td><td>1989年3月</td><td>27页</td></tr><tr><td>2</td><td>NFSv3</td><td>rfc1813</td><td>1995年6月</td><td>126页</td></tr><tr><td>3</td><td>NFSv4.0</td><td>rfc3530</td><td>2003年4月</td><td>275页</td></tr><tr><td>4</td><td>NFSv4.1</td><td>rfc5661</td><td>2010年1月</td><td>617页</td></tr></tbody></table><p>了解到的是：每个版本都在之前版本的基础上进行了改进，增加了新的功能和特性，提高了性能和安全性。</p><p>此时只是开启了 NFS 服务，还需要修改共享文件夹的权限。</p><p>到「控制台」「权限」「共享文件夹」里面，对想要共享的文件夹进行权限修改。例如我想改「Download」这个文件夹，需要点击右侧操作的第二个图标。然后按照下图这样修改。</p><p><img src="/img/2023/qnap-nfs-permission.png.webp" alt="qnap-nfs-permission.png"></p><p>IP 地址我填 <code>192.168.68.1/24</code> 也就是说我路由器里的所有设备都可以访问。因为 IP 地址是 32 位的，<code>/24</code> 就是说只要 IP 地址是 <code>192.168.68.</code> 开头的，都可以访问。</p><p>当然我们也可以设置只有一个 IP 可以访问，例如填写个 <code>192.168.68.123</code> 这样。</p><p>由于我只是想播放 nas 里面的视频而已，所以给只读权限就够了。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;在威联通的控制台里面，提供4种文件共享方式：Win&amp;#x2F;Mac&amp;#x2F;NFS&amp;#x2F;WebDAV&lt;/p&gt;
+&lt;p&gt;其中 Windows 的 smb 是最通用，我之前也是一直使用 smb 而已，毕竟 win 和 mac 都能用。&lt;/p&gt;
+&lt;p&gt;最近我想研究一下怎么</summary>
+      
+    
+    
+    
+    
+    <category term="随笔" scheme="https://powersee.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac 如何将 jfif 图片转换为 jpg</title>
+    <link href="https://powersee.github.io/2023/05/Mac-jfif/"/>
+    <id>https://powersee.github.io/2023/05/Mac-jfif/</id>
+    <published>2023-05-12T16:39:11.000Z</published>
+    <updated>2023-05-14T01:18:45.248Z</updated>
+    
+    <content type="html"><![CDATA[<p>我发现 Mac 似乎无法直接预览 jfif 格式的图片，按空格键之后并不能显示图片内容。</p><p>不过 Mac 自带的「预览」APP 是可以直接打开 jfif 图片的。我们需要选中图片，右键「打开方式」「其他…」</p><p>之后在下方的「启用：」选择「所有应用程序」，再选「预览」就可以了。</p><p><img src="/img/2023/preview-jfif-shadow.webp" alt="preview-jfif"></p><p>此时我们就可以打开这样图片了，然后再通过「文件」「导出」就能保存为 jpg 或者 png 了。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;我发现 Mac 似乎无法直接预览 jfif 格式的图片，按空格键之后并不能显示图片内容。&lt;/p&gt;
+&lt;p&gt;不过 Mac 自带的「预览」APP 是可以直接打开 jfif 图片的。我们需要选中图片，右键「打开方式」「其他…」&lt;/p&gt;
+&lt;p&gt;之后在下方的「启用：」选择「所有应用程序</summary>
+      
+    
+    
+    
+    
+    <category term="Mac" scheme="https://powersee.github.io/tags/Mac/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>威联通 qnap 定时执行 Python 脚本</title>
+    <link href="https://powersee.github.io/2023/05/qnap-crontab/"/>
+    <id>https://powersee.github.io/2023/05/qnap-crontab/</id>
+    <published>2023-05-11T16:01:33.000Z</published>
+    <updated>2023-05-11T16:03:05.324Z</updated>
+    
+    <content type="html"><![CDATA[<p>在上期 <a href="/2023/05/qnap-python3">威联通 qnap 使用 Python3</a> 已经弄明白，怎么在 shell 里使用 Python3 了。但是我想要的是能够定时执行 Python3 脚本。</p><p>通过执行 <code>pip3 -V</code> 可以查找到它在哪个位置。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># pip3 -V</span><br><span class="line">pip 22.0.4 from /opt/python3/lib/python3.10/site-packages/pip (python 3.10)</span><br><span class="line">[/share/CACHEDEV1_DATA/.qpkg/Python3] # which python3</span><br><span class="line">/share/CACHEDEV1_DATA/.qpkg/Python3/python3/bin/python3</span><br></pre></td></tr></table></figure><p>直接使用 <code>pip3 install xxx</code> 来安装模块的话，是安装到 <code>/opt/python3/lib/python3.10/site-packages/</code> 里面的。</p><p>而且它提示我更新 pip 版本给的命令是</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/opt/python3/bin/python3.10 -m pip install --upgrade pip</span><br></pre></td></tr></table></figure><p>跟我预期的不一样，我还以为会使用 <code>/share/CACHEDEV1_DATA/.qpkg/Python3/python3/bin/python3.10</code> 呢。</p><p>查询一下，发现 <code>/opt/python3/bin/python3.10</code> 并不是软链接。那为什么 <code>/opt/python3/bin/</code> 里面的内容和 <code>/share/CACHEDEV1_DATA/.qpkg/Python3/python3/bin/</code> 一模一样呢？</p><p>后来我知道了，原来 <code>/opt/python3</code> 就是一个符号链接而已。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># ls -alh /opt/python3</span><br><span class="line">lrwxrwxrwx 1 admin administrators 43 2023-05-04 07:15 /opt/python3 -&gt; /share/CACHEDEV1_DATA/.qpkg/Python3/python3/</span><br></pre></td></tr></table></figure><p>为了命令比较简短一些，我还是用 <code>/opt/python3/bin/python3</code></p><p>执行</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure><p>添加定时任务，例如我让它每天早上 7 点 18 分自动执行一个 Python 脚本。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">18 7 * * * /opt/python3/bin/python3 /share/CACHEDEV1_DATA/Multimedia/powersee_script.py</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;在上期 &lt;a href=&quot;/2023/05/qnap-python3&quot;&gt;威联通 qnap 使用 Python3&lt;/a&gt; 已经弄明白，怎么在 shell 里使用 Python3 了。但是我想要的是能够定时执行 Python3 脚本。&lt;/p&gt;
+&lt;p&gt;通过执行 &lt;code&gt;pip</summary>
+      
+    
+    
+    
+    
+    <category term="随笔" scheme="https://powersee.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>威联通 qnap 使用 Python3</title>
+    <link href="https://powersee.github.io/2023/05/qnap-python3/"/>
+    <id>https://powersee.github.io/2023/05/qnap-python3/</id>
+    <published>2023-05-11T07:43:55.000Z</published>
+    <updated>2023-05-11T07:49:46.133Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>我发现在威联通上面使用 Python3 还挺麻烦的。即使我已经在 App Center 里面安装好了，但是当我通过 ssh 连接威联通 nas 时，却发现找不到 Python3，Python2 倒是可以找到。</p><p><img src="/img/2023/qnap-Python3.webp" alt="qnap-Python3"></p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[~] # python3</span><br><span class="line">-sh: python3: command not found</span><br><span class="line">[~] # python</span><br><span class="line">Python 2.7.13 (default, Mar 24 2022, 10:03:40)</span><br><span class="line">[GCC 4.9.2] on linux2</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure><p>那问题来了。</p><h4 id="安装好的-Python3-在哪里呢？"><a href="#安装好的-Python3-在哪里呢？" class="headerlink" title="安装好的 Python3 在哪里呢？"></a>安装好的 Python3 在哪里呢？</h4><p>答：在 <code>/share/CACHEDEV1_DATA/.qpkg/Python3</code></p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[/share/CACHEDEV1_DATA/.qpkg/Python3] # ls</span><br><span class="line">python3/  python3.bashPython3.sh*  README.mdsrc/</span><br></pre></td></tr></table></figure><h4 id="那要如何使用它呢？"><a href="#那要如何使用它呢？" class="headerlink" title="那要如何使用它呢？"></a>那要如何使用它呢？</h4><p>通过查看 <code>README.md</code> 的内容，我们可以看到这些内容</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># cat README.md</span><br><span class="line">Run the following command to enter Python3 environment:</span><br><span class="line"></span><br><span class="line">```</span><br><span class="line">$ . /etc/profile.d/python3.bash</span><br><span class="line">```</span><br></pre></td></tr></table></figure><p>也就是说，我们需要在 shell 里执行一下</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">. /etc/profile.d/python3.bash</span><br></pre></td></tr></table></figure><p>这条命令，才可以进入 Python3 环境（注意 <code>.</code> 之后有一个空格）</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[/share/CACHEDEV1_DATA/.qpkg/Python3] # . /etc/profile.d/python3.bash</span><br><span class="line">[/share/CACHEDEV1_DATA/.qpkg/Python3] # python3</span><br><span class="line">Python 3.10.4 (main, May  6 2022, 08:22:01) [GCC 5.4.0 20160609] on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure><h4 id="进阶了解"><a href="#进阶了解" class="headerlink" title="进阶了解"></a>进阶了解</h4><p>其实这里的 <code>.</code> 也可以换为 source，它们是等价的。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[~] # python3</span><br><span class="line">-sh: python3: command not found</span><br><span class="line">[~] # source /etc/profile.d/python3.bash</span><br><span class="line">[~] # python3</span><br><span class="line">Python 3.10.4 (main, May  6 2022, 08:22:01) [GCC 5.4.0 20160609] on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure><p>而且我们可以发现，<code>/etc/profile.d/python3.bash</code> 其实是 <code>/share/CACHEDEV1_DATA/.qpkg/Python3/python3.bash</code> 符号链接（Symbolic Link）。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># ls -alh /etc/profile.d/python3.bash</span><br><span class="line">lrwxrwxrwx 1 powersee administrators 48 2023-05-04 07:15 /etc/profile.d/python3.bash -&gt; /share/CACHEDEV1_DATA/.qpkg/Python3/python3.bash</span><br></pre></td></tr></table></figure><p>看看 python3.bash 里面的内容</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># cat python3.bash</span><br><span class="line">_PYTHON3_QPKG_CONF=/etc/config/qpkg.conf</span><br><span class="line">_PYTHON3_QPKG_NAME=&quot;Python3&quot;</span><br><span class="line">_PYTHON3_QPKG_ROOT=$(/sbin/getcfg $_PYTHON3_QPKG_NAME Install_Path -f $&#123;_PYTHON3_QPKG_CONF&#125;)</span><br><span class="line">_PYTHON3_QPKG_BIN=&quot;$&#123;_PYTHON3_QPKG_ROOT&#125;/python3/bin&quot;</span><br><span class="line">echo &quot;$&#123;PATH&#125;&quot; | grep -q  $&#123;_PYTHON3_QPKG_BIN&#125; || export PATH=$&#123;_PYTHON3_QPKG_BIN&#125;:$&#123;PATH&#125;</span><br></pre></td></tr></table></figure><p>我尝试过将 <code>source /etc/profile.d/python3.bash</code> 这条命令，添加到 <code>.bash_profile</code> 里面，但是重新进行 ssh 连接，发现没有效果，并不能直接执行 python3 来进入交互界面。</p><p>之后我发现默认使用的是 <code>/bin/sh</code>，但是我执行 <code>bash</code> 之后，发现依然是 <code>/bin/sh</code>。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[admin@qnap test]# echo $SHELL</span><br><span class="line">/bin/sh</span><br></pre></td></tr></table></figure><p>之后我发现，里面的 bash 其实 sh 的符号链接……</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># ls -al /bin/bash</span><br><span class="line">lrwxrwxrwx 1 admin administrators 2 2023-05-04 15:09 /bin/bash -&gt; sh*</span><br></pre></td></tr></table></figure><p>所以我应该把命令添加到 <code>~/.profile</code> 里面才对。之后再次 ssh 就可以直接使用 Python3 了。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h4 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h4&gt;&lt;p&gt;我发现在威联通上面使用 Python3 还挺麻烦的。即使我已经在 App Center 里面安装好了，但是当我通过 ssh 连接威联通 na</summary>
+      
+    
+    
+    
+    
+    <category term="随笔" scheme="https://powersee.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo 使用自定义脚本，在渲染前检查图片链接</title>
+    <link href="https://powersee.github.io/2023/05/hexo-img-before-render/"/>
+    <id>https://powersee.github.io/2023/05/hexo-img-before-render/</id>
+    <published>2023-05-07T15:57:32.000Z</published>
+    <updated>2023-05-07T16:08:55.101Z</updated>
+    
+    <content type="html"><![CDATA[<p>前篇：<a href="/2023/05/hexo-custom-script">hexo 自定义 js 脚本</a></p><p>我平时都是在 typora 里面写好文章内容，完成之后，再到 hexo 新建文章，然后将之前写好的内容复制粘贴过来。</p><p>但是图片的链接会发生变化，例如原本的链接是 ‘img&#x2F;2023&#x2F;mac-shortcut-key.webp’，复制后就变成了 ‘..&#x2F;..&#x2F;..&#x2F;Nutstore Files&#x2F;markdown&#x2F;img&#x2F;2023&#x2F;mac-shortcut-key.webp’ 这样的链接。想要让 hexo 渲染后能正常显示，需要把它变成 ‘&#x2F;img&#x2F;2023&#x2F;mac-shortcut-key.webp’</p><p>所以我之前都是手动修改图片链接的。如果文章中就一两张图，我就使用鼠标滑动选中，再删除。如果图片比较多，那就查找替换，也就几秒能搞定。</p><p>但这种机械重复的操作，肯定还是用代码来处理比较好。</p><p>我猜想应该也有其他人，也有同样的困扰吧。之后我在插件中心 <a href="https://hexo.io/plugins/">Plugins | Hexo</a>，搜索一下 img，我找到了这个项目：<a href="https://github.com/cocowool/hexo-image-link">cocowool&#x2F;hexo-image-link: 当MD中引用本地文件时，处理生成的html中的图片链接</a></p><p>查看他的代码，我发现里面使用了 <code>before_post_render</code> 这个参数。</p><p>处理的过程就是在渲染之前，查找一下图片链接，再处理图片链接。</p><p>于是我参考他的代码，最后达到了我的目的。这样会在渲染时，检查文章中所有的图片链接，如果发现有 <code>../../../Nutstore Files/markdown</code>，就将这个前缀去掉，但是不会修改源文件。我们的 md 文件还是原来的样子。</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">hexo.<span class="property">extend</span>.<span class="property">filter</span>.<span class="title function_">register</span>(<span class="string">&#x27;before_post_render&#x27;</span>, <span class="keyword">function</span>(<span class="params">data</span>)&#123;</span><br><span class="line">    <span class="keyword">const</span> str = <span class="string">&#x27;../../../Nutstore Files/markdown&#x27;</span></span><br><span class="line"></span><br><span class="line">    data.<span class="property">content</span> = data.<span class="property">content</span>.<span class="title function_">replace</span>(<span class="regexp">/!\[(.*?)\]\((.*?)\)/gi</span>, <span class="keyword">function</span>(<span class="params">match, p1, p2</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p2.<span class="title function_">includes</span>(str)) &#123;</span><br><span class="line">            <span class="comment">// 替换图片链接</span></span><br><span class="line">            p2 = p2.<span class="title function_">replace</span>(str, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 生成对应的 &lt;img&gt; 标签</span></span><br><span class="line">            <span class="keyword">return</span> <span class="string">`&lt;img src=&quot;<span class="subst">$&#123;p2&#125;</span>&quot; alt=&quot;<span class="subst">$&#123;p1&#125;</span>&quot;&gt;`</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> match; <span class="comment">// 返回原始的 Markdown 图片语法</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>不过后来由于坚果云自动升级，图片链接的前缀已经不是 <code>../../../Nutstore Files/markdown</code> 了，所以我需要修改一下脚本。可能其他人的链接也跟我不一样，只需要修改一下就行。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;前篇：&lt;a href=&quot;/2023/05/hexo-custom-script&quot;&gt;hexo 自定义 js 脚本&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;我平时都是在 typora 里面写好文章内容，完成之后，再到 hexo 新建文章，然后将之前写好的内容复制粘贴过来。&lt;/p&gt;
+&lt;p&gt;但是图片</summary>
+      
+    
+    
+    
+    
+    <category term="随笔" scheme="https://powersee.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo 自定义 js 脚本</title>
+    <link href="https://powersee.github.io/2023/05/hexo-custom-script/"/>
+    <id>https://powersee.github.io/2023/05/hexo-custom-script/</id>
+    <published>2023-05-06T07:53:23.000Z</published>
+    <updated>2023-05-06T08:05:02.202Z</updated>
+    
+    <content type="html"><![CDATA[<p>hexo 的官方文档，在插件部分有写</p><blockquote><p>如果您的代码很简单，建议您编写脚本，您只需要把 JavaScript 文件放到 <code>scripts</code> 文件夹，在启动时就会自动载入。</p></blockquote><p>那么我在博客根目录，新建 <code>scripts</code> 目录，然后里面放一个 <code>test.js</code> 的 JavaScript 文件，内容就写</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;haha, powersee&#x27;</span>)</span><br></pre></td></tr></table></figure><p>之后我执行 <code>hexo s</code> 启动 hexo 服务器，终端就会输出我自定义的内容。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">INFO  Validating config</span><br><span class="line">haha, powersee</span><br><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure><p>也就是说这个脚本成功执行了。</p><p>而且还可以建立多个 js 文件，例如 test2.js test3.js …</p><p>那我们可以通过建立脚本文件，来实现一些自动化操作。在 <a href="https://hexo.io/zh-cn/api/filter">过滤器（Filter） | Hexo</a> 里面有提供一些例子。用得比较多的应该是 before_post_render。</p><p>过滤器列表一共有这些：</p><ol><li><a href="https://hexo.io/zh-cn/api/filter#before-post-render">before_post_render</a></li><li><a href="https://hexo.io/zh-cn/api/filter#after-post-render">after_post_render</a></li><li><a href="https://hexo.io/zh-cn/api/filter#before-exit">before_exit</a></li><li><a href="https://hexo.io/zh-cn/api/filter#before-generate">before_generate</a></li><li><a href="https://hexo.io/zh-cn/api/filter#after-generate">after_generate</a></li><li><a href="https://hexo.io/zh-cn/api/filter#template-locals">template_locals</a></li><li><a href="https://hexo.io/zh-cn/api/filter#after-init">after_init</a></li><li><a href="https://hexo.io/zh-cn/api/filter#new-post-path">new_post_path</a></li><li><a href="https://hexo.io/zh-cn/api/filter#post-permalink">post_permalink</a></li><li><a href="https://hexo.io/zh-cn/api/filter#after-render">after_render</a></li><li><a href="https://hexo.io/zh-cn/api/filter#server-middleware">server_middleware</a></li></ol><p>前段时间我耗费了不少时间在研究这个，感觉还是挺有趣的。目前实现的功能有：检查文章中的图片链接、自动复制图片到 hexo 博客目录中。</p><p>后面整理整理再分享出来。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;hexo 的官方文档，在插件部分有写&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果您的代码很简单，建议您编写脚本，您只需要把 JavaScript 文件放到 &lt;code&gt;scripts&lt;/code&gt; 文件夹，在启动时就会自动载入。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;</summary>
+      
+    
+    
+    
+    
+    <category term="随笔" scheme="https://powersee.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>贴吧图片批量下载器</title>
+    <link href="https://powersee.github.io/2023/05/tieba-image-download/"/>
+    <id>https://powersee.github.io/2023/05/tieba-image-download/</id>
+    <published>2023-05-05T15:04:25.000Z</published>
+    <updated>2023-05-05T15:05:50.209Z</updated>
+    
+    <content type="html"><![CDATA[<p>之前为了制作漫画，放到 kindle 上面来观看，我写了这个程序。可以用来批量下载贴吧的图片。</p><p><img src="/img/2023/tieba-download.png" alt="tieba-download"></p><p>使用方法也很简单，把贴吧的链接粘贴进来，再点击下面的「开始下载」就可以了。</p><p><img src="/img/2023/tieba-download2.png" alt="tieba-download2"></p><p>也可以只输入帖子的 id 就行，软件会先判断的，发现不是完整的链接，它会自动补全的。</p><p>下载后，会在软件的同级文件夹下，多出一个文件夹，里面就是我们下载好的图片，它会按照顺序排好重命名。</p><p><img src="/img/2023/tieba-onepiece.webp" alt="tieba-onepiece"></p><p>前段时间有网友跟我反馈不能使用了，所以我更新了一下代码，并且把我修改软件的日期写上去。</p><p>目前软件可以从我的下载站：<a href="https://pan.powersee.top/">https://pan.powersee.top/</a> 里面下载到，在「windows应用」里面。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;之前为了制作漫画，放到 kindle 上面来观看，我写了这个程序。可以用来批量下载贴吧的图片。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2023/tieba-download.png&quot; alt=&quot;tieba-download&quot;&gt;&lt;/p&gt;
+&lt;p&gt;使用方法也很简单，把贴吧的</summary>
+      
+    
+    
+    
+    
+    <category term="随笔" scheme="https://powersee.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo 更改 js、css 后不生效怎么解决</title>
+    <link href="https://powersee.github.io/2023/05/hexo-js-css-no-work/"/>
+    <id>https://powersee.github.io/2023/05/hexo-js-css-no-work/</id>
+    <published>2023-05-04T15:09:07.000Z</published>
+    <updated>2023-05-04T15:10:15.861Z</updated>
+    
+    <content type="html"><![CDATA[<p>有时候我们修改好了 js、css 文件，执行 hexo s 预览一下效果，确认没问题。</p><p>但是执行 hexo g -d 更新博客之后，发现还是原来的样式，也就是说更改没有上传上去。此时可以到 GitHub pages 的仓库看看，是否 js、css 文件没有更新。如果是的话，此时如果按照官方的建议，是执行一下 hexo clean，然后再重新生成博客的 HTML 文件。</p><p>但是这么做，会导致之前的 git commit 记录都被删掉。</p><p>其实我们只是更改 js、css 而已，不需要这么麻烦。只需要把本地 public 文件夹中的 js 或者 css 文件删除掉。</p><p>再来执行 hexo g 就会生成新的。（可以通过输出日志判断）之后我们再执行 hexo d 来发布更新即可。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;有时候我们修改好了 js、css 文件，执行 hexo s 预览一下效果，确认没问题。&lt;/p&gt;
+&lt;p&gt;但是执行 hexo g -d 更新博客之后，发现还是原来的样式，也就是说更改没有上传上去。此时可以到 GitHub pages 的仓库看看，是否 js、css 文件没有更新</summary>
+      
+    
+    
+    
+    
+    <category term="hexo" scheme="https://powersee.github.io/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>crontab 中如何设置环境变量</title>
+    <link href="https://powersee.github.io/2023/05/crontab-env/"/>
+    <id>https://powersee.github.io/2023/05/crontab-env/</id>
+    <published>2023-05-02T16:52:46.000Z</published>
+    <updated>2023-05-02T16:55:00.572Z</updated>
+    
+    <content type="html"><![CDATA[<p>我的 Python3 是装在 &#x2F;opt&#x2F;homebrew&#x2F;bin&#x2F; 里面的，我发现在 crontab 中执行 Python 脚本。</p><p>使用的是 &#x2F;usr&#x2F;bin&#x2F;python3，这个的版本是 3.9.6。而我用 homebrew 装的是 3.11.2。</p><p>如果想让 crontab 优先使用 homebrew 的 Python3，有两种方法。</p><p>1、直接写出完整路径</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1 7 * * * /opt/homebrew/bin/python3 /path/to/myscript.py</span><br></pre></td></tr></table></figure><p>2、在 crontab 头部定义环境变量</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PATH=/opt/homebrew/bin:/usr/bin:/bin</span><br></pre></td></tr></table></figure><p>当执行脚本时，会按照 PATH 环境变量的先后顺序在每个目录中查找命令，找到第一个版本即执行。</p><p>因此这里我把 &#x2F;opt&#x2F;homebrew&#x2F;bin 放最前面。可以写个脚本测试一下 Python 版本。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import sys</span><br><span class="line">print(sys.version)</span><br></pre></td></tr></table></figure><p>定义环境变量的好处，就是如果我们有多个脚本需要执行，就可以在 crontab 里面省掉很多字符。例如我现在这种情况，就不用在 crontab 中写一堆 <code>/opt/homebrew/bin/</code></p><p>如果我们要读取用户目录下的脚本，可以使用 <code>$HOME</code> 变量，例如</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 $HOME/myscript.py</span><br></pre></td></tr></table></figure><p>那么我们也可以直接在 crontab 开头，加载 shell 配置文件，例如我使用的是 zsh，可以在 crontab 开头加上</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source $HOME/.zshrc</span><br></pre></td></tr></table></figure><p>这样的好处是，在 shell 能执行的命令，现在 crontab 应该也可以。而且也能使用 alias。所以看个人需要咯。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;我的 Python3 是装在 &amp;#x2F;opt&amp;#x2F;homebrew&amp;#x2F;bin&amp;#x2F; 里面的，我发现在 crontab 中执行 Python 脚本。&lt;/p&gt;
+&lt;p&gt;使用的是 &amp;#x2F;usr&amp;#x2F;bin&amp;#x2F;python3，这个的版本是 </summary>
+      
+    
+    
+    
+    
+    <category term="随笔" scheme="https://powersee.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>让 hexo 文章图片在 typora 里也能显示</title>
+    <link href="https://powersee.github.io/2023/05/hexo-typora-img/"/>
+    <id>https://powersee.github.io/2023/05/hexo-typora-img/</id>
+    <published>2023-05-02T10:10:45.000Z</published>
+    <updated>2023-05-02T10:12:58.473Z</updated>
+    
+    <content type="html"><![CDATA[<p>对于 hexo 文章的图片，我是在 source 目录下新建一个 img 目录，把图片都放在里面。然后我文章中的图片链接，都是 <code>/img/abc.png</code> 这种格式的。</p><p>它在博客网站上可以显示出来，但是在 typora 里面就没法显示。想要在 typora 里面可以显示图片，得把链接改为 <code>../img/abc.png</code> 这种格式的。</p><p>但是这样一改，我博客里就没法显示图片了，属于按下葫芦浮起瓢。</p><p>解决方法：</p><p>我们只需要在文章头部加入这一行，那么图片在 typora 里面就可以加载出来。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">typora-root-url: ../</span><br></pre></td></tr></table></figure><p>图片的链接依然是 <code>/img/abc.png</code> 这种格式的。</p><p>它的原理就是 url 拼接，也就是说，在 typora 里面，加了这一行之后，图片的链接就变成 <code>../img/abc.png</code> 了。</p><p>或者说，typora 会去 <code>../</code> （也就是上一层目录）找 <code>/img/abc.png</code> 这张图片，找到了就显示出来。</p><p>而对于 hexo，它会忽略掉文章头部的 <code>typora-root-url</code>，所以没什么影响。</p><p>但要是每次都得手动去填写这一行，也很麻烦。一劳永逸的方法是，直接修改 <code>scaffolds/post.md</code> </p><p>这个是文章的模板，当我们执行 <code>hexo new post filename</code> 的时候，hexo 就会读取这个模板文件，创建一个新的文章文件。</p><p>我目前的模板是这样的：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">categories:</span><br><span class="line">tags:</span><br><span class="line">    - 随笔</span><br><span class="line">    -</span><br><span class="line">    - </span><br><span class="line">lock: false</span><br><span class="line">typora-root-url: ../</span><br><span class="line">---</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;对于 hexo 文章的图片，我是在 source 目录下新建一个 img 目录，把图片都放在里面。然后我文章中的图片链接，都是 &lt;code&gt;/img/abc.png&lt;/code&gt; 这种格式的。&lt;/p&gt;
+&lt;p&gt;它在博客网站上可以显示出来，但是在 typora 里面就没法显示。</summary>
+      
+    
+    
+    
+    
+    <category term="随笔" scheme="https://powersee.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac 控制外接显示器亮度 MonitorControl</title>
+    <link href="https://powersee.github.io/2023/05/MonitorControl/"/>
+    <id>https://powersee.github.io/2023/05/MonitorControl/</id>
+    <published>2023-05-01T01:59:25.000Z</published>
+    <updated>2023-05-01T04:43:38.264Z</updated>
+    
+    <content type="html"><![CDATA[<p>发现一个可以在 Mac 上面控制外接显示器亮度的开源应用 <a href="https://github.com/MonitorControl/MonitorControl">MonitorControl</a></p><p>星星数量目前（2023年05月01日）有 21.4k。</p><p>使用这个要求显示器支持 ddc&#x2F;ci，可以打开显示器的设置看看有没有这个开关。我用的显示器是优派的，设置菜单里可以找到，默认就是打开的。</p><p><img src="/img/2023/ViewSonic-DDC:CI.webp" alt="ViewSonic-DDC:CI"></p><p>之后我使用 homebrew 来安装</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">brew install MonitorControl</span><br></pre></td></tr></table></figure><p>装好后打开，可以在顶部找到一个灯光图标️</p><p><img src="/img/2023/MonitorControl-top.jpg" alt="MonitorControl-top"></p><p>拉动就可以调节显示器的亮度，但是音量调节并没有效果。（我是通过 HDMI 线连接 Mac min 和显示器的）</p><p>我发现拉到最亮时，就花屏了……</p><p><img src="/img/2023/MonitorControl-crash.webp" alt="MonitorControl-crash"></p><p>好像只有优派的这台显示器会这样，我另外通过 USB Type-C 线，将 Mac mini 连接到一台 sculptor 的便携显示器上，可以随意调节亮度，并没有出现花屏的情况。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;发现一个可以在 Mac 上面控制外接显示器亮度的开源应用 &lt;a href=&quot;https://github.com/MonitorControl/MonitorControl&quot;&gt;MonitorControl&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;星星数量目前（2023年05月01日）有 21</summary>
+      
+    
+    
+    
+    
+    <category term="Mac" scheme="https://powersee.github.io/tags/Mac/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>大聪明，用 js 替换图片链接，抛弃对象存储</title>
+    <link href="https://powersee.github.io/2023/04/js-replace-img-link/"/>
+    <id>https://powersee.github.io/2023/04/js-replace-img-link/</id>
+    <published>2023-04-29T16:03:57.000Z</published>
+    <updated>2023-04-29T16:10:29.090Z</updated>
+    
+    <content type="html"><![CDATA[<p>之前讲到<a href="/2023/04/about-oss/">对象存储</a>，我使用了腾讯云的对象存储来当博客图床。</p><p>用了一段时间后，我还是决定弃用了。一方面是担心待会别有用心的人，来盗刷我的对象存储流量，毕竟网上有很多人遇过了，谁叫对象存储是可以欠费的呢。</p><p>另一方面，我分析一下，现在对象存储选的是广州的服务器，而我自己有一台香港的服务器。如果我将博客图片，放到这台香港服务器上面，速度方面还是绰绰有余的。</p><p>那要怎么将图片放到自己的服务器上呢？🤔如果是其他人，可能需要去装个图床应用之类的。但是我不需要，因为我的备份博客就在这台服务器上面。😉</p><p><a href="https://powersee.github.io/">https://powersee.github.io/</a> 这个网址访问的是 GitHub Pages 上的网页文件。</p><p>而 <a href="https://blog.powersee.top/">https://blog.powersee.top/</a> 访问的是我服务器上面的网页文件。</p><p>我实现备份博客的方法也很简单，因为我的博客托管在 GitHub 上面，所以我在服务器上面设置定时任务，每天凌晨自动执行 git pull  来更新博客。🤗</p><p>那么我博客上的图片，服务器上都是有的。</p><p>此时简单的方法就是，将文章中的图片链接，都加上备份博客 <a href="https://blog.powersee.top/">https://blog.powersee.top/</a> 的前缀，在 vscode 里面批量替换可以很快处理完。</p><p>但是这样有些问题，就是当我写好文章后，在本地执行 <code>hexo s</code> 来预览时，图片就加载不出来，因为此时图片还没有传到服务器上。</p><p>所以我的想法是，当通过 <a href="https://powersee.github.io/">https://powersee.github.io/</a> 访问我的博客时，才替换图片链接。通过其它的域名访问，不会替换。</p><p>这样的要求，就需要使用 JavaScript 来实现。</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">host</span> == <span class="string">&quot;powersee.github.io&quot;</span>) &#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取当前网页中 body 的所有 img 标签</span></span><br><span class="line"><span class="keyword">const</span> imgElements = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;body img&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历每个 img 标签</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; imgElements.<span class="property">length</span>; i++) &#123;</span><br><span class="line"><span class="keyword">const</span> imgElement = imgElements[i];</span><br><span class="line"><span class="keyword">const</span> src = imgElement.<span class="title function_">getAttribute</span>(<span class="string">&#x27;src&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查 img 标签的 src 是否以 /img/ 开头</span></span><br><span class="line"><span class="keyword">if</span> (src.<span class="title function_">startsWith</span>(<span class="string">&#x27;/img/&#x27;</span>)) &#123;</span><br><span class="line">imgElement.<span class="title function_">setAttribute</span>(<span class="string">&#x27;src&#x27;</span>, src.<span class="title function_">replace</span>(<span class="string">&#x27;/img/&#x27;</span>, <span class="string">&#x27;https://blog.powersee.top/img/&#x27;</span>));</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>于是我在 js 文件中加入这段代码，就实现了我的目的。😘</p><p>假如我以后不需要替换了，那么只需要去掉这段代码就行。😎</p><p>如果我以后换域名了，也只需要修改这段代码，不需要去替换所有的文章原文本。</p><p>我个人对此还是比较满意的。😊</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;之前讲到&lt;a href=&quot;/2023/04/about-oss/&quot;&gt;对象存储&lt;/a&gt;，我使用了腾讯云的对象存储来当博客图床。&lt;/p&gt;
+&lt;p&gt;用了一段时间后，我还是决定弃用了。一方面是担心待会别有用心的人，来盗刷我的对象存储流量，毕竟网上有很多人遇过了，谁叫对象存储是可以欠费</summary>
+      
+    
+    
+    
+    
+    <category term="JavaScript" scheme="https://powersee.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>将博客头像更改为 SVG</title>
+    <link href="https://powersee.github.io/2023/04/blog-logo-svg/"/>
+    <id>https://powersee.github.io/2023/04/blog-logo-svg/</id>
+    <published>2023-04-28T16:11:04.000Z</published>
+    <updated>2023-04-28T16:14:19.923Z</updated>
+    
+    <content type="html"><![CDATA[<p>现在的博客主题 <a href="https://github.com/imfycc/hexo-themes-yearn">yearn</a> 需要使用头像，我使用的是一张 jpeg logo 图片，大小是 8KB。</p><p>在访问首页的时候需要加载它，访问博客文章的时候也需要。</p><p>然而我观察到 GitHub pages 有时候访问速度只有 6、7KB，这就难顶了，一秒还没法将 logo 加载出来。看来这是一个急需解决的问题。</p><p>那么分析一下，我的头像其实很简单，就是黑色的背景，然后上面是我的昵称 Powersee，这其实可以用 svg 画出来。</p><p>我现在用这样的代码把它弄成 svg</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">width</span>=<span class="string">&quot;180&quot;</span> <span class="attr">height</span>=<span class="string">&quot;180&quot;</span> <span class="attr">viewBox</span>=<span class="string">&quot;0 0 180 180&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">rect</span> <span class="attr">width</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;black&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">rect</span>&gt;</span> <span class="comment">&lt;!-- 黑色背景矩形 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">text</span> <span class="attr">x</span>=<span class="string">&quot;50%&quot;</span> <span class="attr">y</span>=<span class="string">&quot;45%&quot;</span> <span class="attr">text-anchor</span>=<span class="string">&quot;middle&quot;</span> <span class="attr">dy</span>=<span class="string">&quot;.3em&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;white&quot;</span> <span class="attr">font-size</span>=<span class="string">&quot;48&quot;</span> <span class="attr">font-family</span>=<span class="string">&quot;sans-serif&quot;</span>&gt;</span>Power<span class="tag">&lt;/<span class="name">text</span>&gt;</span> <span class="comment">&lt;!-- 文字 &quot;Power&quot;，居中对齐，白色填充，字号 48px，字体 sans-serif --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">text</span> <span class="attr">x</span>=<span class="string">&quot;50%&quot;</span> <span class="attr">y</span>=<span class="string">&quot;65%&quot;</span> <span class="attr">text-anchor</span>=<span class="string">&quot;middle&quot;</span> <span class="attr">dy</span>=<span class="string">&quot;.3em&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;white&quot;</span> <span class="attr">font-size</span>=<span class="string">&quot;48&quot;</span> <span class="attr">font-family</span>=<span class="string">&quot;sans-serif&quot;</span>&gt;</span>_see<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure><p>效果如下</p><svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">  <rect width="100%" height="100%" fill="black"></rect> <!-- 黑色背景矩形 -->  <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">Power</text> <!-- 文字 "Power"，居中对齐，白色填充，字号 48px，字体 sans-serif -->    <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">_see</text></svg><blockquote><p>SVG 指可伸缩矢量图形 (Scalable Vector Graphics)</p></blockquote><p>不要注释的话，它只需要 393 字节，也就是 393Byte，不到 0.4KB，很不错。原本需要加载一张 8KB 的外部图片，现在改为 svg 可以直接写在 HTML 里面，而且需要加载的数据也只需原来的 5%。</p><p>那么就开始修改主题吧，需要修改 <code>index.ejs</code> 和 <code>ariticle.ejs</code> 这两个文件。</p><ul><li>index.ejs</li></ul><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- &lt;div class=&quot;face-img&quot;&gt;&lt;img src=&quot;&lt;%=theme.avatar%&gt;&quot;&gt;&lt;/div&gt; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;face-img&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">width</span>=<span class="string">&quot;180&quot;</span> <span class="attr">height</span>=<span class="string">&quot;180&quot;</span> <span class="attr">viewBox</span>=<span class="string">&quot;0 0 180 180&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rect</span> <span class="attr">width</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;black&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">rect</span>&gt;</span> <span class="comment">&lt;!-- 黑色背景矩形 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">text</span> <span class="attr">x</span>=<span class="string">&quot;50%&quot;</span> <span class="attr">y</span>=<span class="string">&quot;45%&quot;</span> <span class="attr">text-anchor</span>=<span class="string">&quot;middle&quot;</span> <span class="attr">dy</span>=<span class="string">&quot;.3em&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;white&quot;</span> <span class="attr">font-size</span>=<span class="string">&quot;48&quot;</span> <span class="attr">font-family</span>=<span class="string">&quot;sans-serif&quot;</span>&gt;</span>Power<span class="tag">&lt;/<span class="name">text</span>&gt;</span> <span class="comment">&lt;!-- 文字 &quot;Power&quot;，居中对齐，白色填充，字号 48px，字体 sans-serif --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">text</span> <span class="attr">x</span>=<span class="string">&quot;50%&quot;</span> <span class="attr">y</span>=<span class="string">&quot;65%&quot;</span> <span class="attr">text-anchor</span>=<span class="string">&quot;middle&quot;</span> <span class="attr">dy</span>=<span class="string">&quot;.3em&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;white&quot;</span> <span class="attr">font-size</span>=<span class="string">&quot;48&quot;</span> <span class="attr">font-family</span>=<span class="string">&quot;sans-serif&quot;</span>&gt;</span>_see<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure><ul><li>ariticle.ejs</li></ul><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- &lt;img src=&quot;&lt;%=theme.avatar%&gt;&quot;&gt; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="attr">width</span>=<span class="string">&quot;180&quot;</span> <span class="attr">height</span>=<span class="string">&quot;180&quot;</span> <span class="attr">viewBox</span>=<span class="string">&quot;0 0 180 180&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">rect</span> <span class="attr">width</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100%&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;black&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">rect</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">text</span> <span class="attr">x</span>=<span class="string">&quot;50%&quot;</span> <span class="attr">y</span>=<span class="string">&quot;45%&quot;</span> <span class="attr">text-anchor</span>=<span class="string">&quot;middle&quot;</span> <span class="attr">dy</span>=<span class="string">&quot;.3em&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;white&quot;</span> <span class="attr">font-size</span>=<span class="string">&quot;48&quot;</span> <span class="attr">font-family</span>=<span class="string">&quot;sans-serif&quot;</span>&gt;</span>Power<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">text</span> <span class="attr">x</span>=<span class="string">&quot;50%&quot;</span> <span class="attr">y</span>=<span class="string">&quot;65%&quot;</span> <span class="attr">text-anchor</span>=<span class="string">&quot;middle&quot;</span> <span class="attr">dy</span>=<span class="string">&quot;.3em&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;white&quot;</span> <span class="attr">font-size</span>=<span class="string">&quot;48&quot;</span> <span class="attr">font-family</span>=<span class="string">&quot;sans-serif&quot;</span>&gt;</span>_see<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure><p>找到里面引入 logo 的 img 位置，将它替换为 svg。</p><p>接着修改 css 文件，更改一下样式。就成功使用 svg 作为头像了。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;现在的博客主题 &lt;a href=&quot;https://github.com/imfycc/hexo-themes-yearn&quot;&gt;yearn&lt;/a&gt; 需要使用头像，我使用的是一张 jpeg logo 图片，大小是 8KB。&lt;/p&gt;
+&lt;p&gt;在访问首页的时候需要加载它，访问博客文章的</summary>
+      
+    
+    
+    
+    
+    <category term="web" scheme="https://powersee.github.io/tags/web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac 屏幕使用时间被 HelpViewer 占满</title>
+    <link href="https://powersee.github.io/2023/04/screentime-helpviewer/"/>
+    <id>https://powersee.github.io/2023/04/screentime-helpviewer/</id>
+    <published>2023-04-27T17:15:40.000Z</published>
+    <updated>2023-04-27T17:25:33.364Z</updated>
+    
+    <content type="html"><![CDATA[<p>我打开 Mac 上面的屏幕使用时间，发现有一个叫「HelpViewer」的应用，占满了今天的使用时间。</p><p><img src="/img/2023/screentime-helpviewer.webp" alt="screentime-helpviewer"></p><p>而昨天居然占满了 24 小时。</p><p><img src="/img/2023/HelpViewer-24h.webp" alt="HelpViewer-24h"></p><p>这个问题我之前也遇过，不过重启机器后好像就好了。现在又再次出现，我觉得还是得查查怎么解决。</p><p>在苹果的社区里我看到这样的讨论：<a href="https://discussions.apple.com/thread/253321652">HelpViewer - Apple Community</a></p><p>里面提到，可以通过给这个 APP 限额来解决。直接限制它每天只能使用 1 分钟。</p><p><img src="/img/2023/HelpViewer-limit.webp" alt="HelpViewer-limit"></p><p>我尝试了，发现没有用，还是会继续统计 HelpViewer 的使用时间。</p><p>不过重启机器之后，好像就不会了。之后我又观察了几天，但是这几天的屏幕时间里都没有 HelpViewer，所以并不能证明给它限额有效。</p><p>但是，目前好像就只有这一个方法了。</p><p>这个 bug 存在快两年了，苹果居然还没修复。难道说是没法修复的？看有的网友说是内存泄露的问题。目前看来如果限额也没用，就只能重启了。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;我打开 Mac 上面的屏幕使用时间，发现有一个叫「HelpViewer」的应用，占满了今天的使用时间。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2023/screentime-helpviewer.webp&quot; alt=&quot;screentime-helpviewer&quot;&gt;&lt;/</summary>
+      
+    
+    
+    
+    
+    <category term="Mac" scheme="https://powersee.github.io/tags/Mac/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何禁止 Firefox 的更新提示</title>
+    <link href="https://powersee.github.io/2023/04/Firefox-no-update/"/>
+    <id>https://powersee.github.io/2023/04/Firefox-no-update/</id>
+    <published>2023-04-26T16:18:00.000Z</published>
+    <updated>2023-04-26T16:24:20.025Z</updated>
+    
+    <content type="html"><![CDATA[<p>火狐浏览器，非常烦人，每次打开都会提示更新。我不想更新，我不在乎安全，因为它不是我的主力浏览器。</p><p><img src="/img/2023/firefox-update.png" alt="firefox-update"></p><p>网上搜一下，还是有挺多人对此反感。好在解决方法不算麻烦，只需要修改一个文件。</p><p>首先在桌面或者开始菜单里面，找到 Firefox 的图标，右键「打开文件所在的位置」</p><p>然后进入 defaults 、 pref</p><p>我的是在 <code>C:\Program Files\Firefox Developer Edition\defaults\pref</code></p><p>我们可以使用记事本来打开里面的 <code>channel-prefs.js</code></p><p>我的里面最后一行显示的是这个</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pref(&quot;app.update.channel&quot;, &quot;aurora&quot;);</span><br></pre></td></tr></table></figure><p>那么我只需要把后面引号中的内容去掉即可，也就是把 aurora 删掉，变成</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pref(&quot;app.update.channel&quot;, &quot;&quot;);</span><br></pre></td></tr></table></figure><p>此时保存一下文件。（由于我浏览器装在 C:\Program Files\ 里面，所以需要管理员权限才能保存，如果你们是装在其它位置，也许可以不用）</p><p>之后再打开浏览器，就不会有更新提示了。</p><p><img src="/img/2023/firefox-no-update.png" alt="firefox-no-update"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;火狐浏览器，非常烦人，每次打开都会提示更新。我不想更新，我不在乎安全，因为它不是我的主力浏览器。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2023/firefox-update.png&quot; alt=&quot;firefox-update&quot;&gt;&lt;/p&gt;
+&lt;p&gt;网上搜一下，还是有挺多人</summary>
+      
+    
+    
+    
+    
+    <category term="随笔" scheme="https://powersee.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>解决 DBeaver 只显示默认的一个数据库 postgres</title>
+    <link href="https://powersee.github.io/2023/04/DBeaver-postgresql/"/>
+    <id>https://powersee.github.io/2023/04/DBeaver-postgresql/</id>
+    <published>2023-04-25T17:04:46.000Z</published>
+    <updated>2023-04-25T17:16:18.618Z</updated>
+    
+    <content type="html"><![CDATA[<p>右键连接，编辑连接。在「连接设置」「PostgreSQL」里面，勾选上「显示非缺省的数据库」就可以了。</p><p><img src="/img/2023/postgresql-show-all-database.webp" alt="postgresql-show-all-database"></p><p>重新连接就可以看到所有数据库了。</p><p><img src="/img/2023/postgres-all-database.jpg" alt="postgres-all-database"></p><p>如果是在英文语境下，它的设置是 <code>Show all databases</code>，感觉就离谱，这玩意是怎么翻译成「显示非缺省的数据库」的？</p><p><img src="/img/2023/show-all-databases.jpg" alt="show-all-databases"></p><p>问题是没文化的我，还不知道「缺省」是什么意思，翻译一下，才知道是 default……</p><p><img src="/img/2023/default.webp" alt="default"></p><blockquote><p>缺省(quē shěng)，又译“默认”。</p><p>——百度百科</p></blockquote><p>知乎上也有不少的讨论：<a href="https://www.zhihu.com/question/20953160">「缺省」这个词是如何从英语 “Default” 翻译过来的？ - 知乎</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;右键连接，编辑连接。在「连接设置」「PostgreSQL」里面，勾选上「显示非缺省的数据库」就可以了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2023/postgresql-show-all-database.webp&quot; alt=&quot;postgresql-show-al</summary>
+      
+    
+    
+    
+    
+    <category term="SQL" scheme="https://powersee.github.io/tags/SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Docker 运行 PostgreSQL 数据库</title>
+    <link href="https://powersee.github.io/2023/04/docker-postgresql/"/>
+    <id>https://powersee.github.io/2023/04/docker-postgresql/</id>
+    <published>2023-04-24T16:00:24.000Z</published>
+    <updated>2023-04-24T16:03:11.899Z</updated>
+    
+    <content type="html"><![CDATA[<p>目前发现很多开源项目都使用 postgresql 来存放数据，因此我认为很有必要学习看看。</p><p>一开始我使用 Rock 5B 本地安装 postgresql，安装的是 14 的版本。之后要修改配置文件，才能够外部访问。感觉还有挺多需要折腾的。</p><p>后来我觉得，还是用 Docker 运行一个来学习好了，快捷方便。而且用完直接删除就行。</p><p>我们可以到 <a href="https://hub.docker.com/_/postgres/tags">Docker Hub</a> 查看 Docker 镜像的情况。我拉取了 4 个镜像，看来用 alpine 标签的镜像最省空间。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># docker images postgres</span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED         SIZE</span><br><span class="line">postgres     15        ceccf204404e   12 days ago     379MB</span><br><span class="line">postgres     15.0      027eba2e8939   6 months ago    377MB</span><br><span class="line">postgres     alpine    1149d285a5f5   15 months ago   209MB</span><br><span class="line">postgres     latest    07e2ee723e2d   15 months ago   374MB</span><br></pre></td></tr></table></figure><p>启动</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d --name=postgres-test -p 2345:5432 -e POSTGRES_PASSWORD=password postgres:alpine</span><br></pre></td></tr></table></figure><p>启动信息</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># docker logs postgres-test</span><br><span class="line">The files belonging to this database system will be owned by user &quot;postgres&quot;.</span><br><span class="line">This user must also own the server process.</span><br><span class="line"></span><br><span class="line">The database cluster will be initialized with locale &quot;en_US.utf8&quot;.</span><br><span class="line">The default database encoding has accordingly been set to &quot;UTF8&quot;.</span><br><span class="line">The default text search configuration will be set to &quot;english&quot;.</span><br><span class="line"></span><br><span class="line">Data page checksums are disabled.</span><br><span class="line"></span><br><span class="line">fixing permissions on existing directory /var/lib/postgresql/data ... ok</span><br><span class="line">creating subdirectories ... ok</span><br><span class="line">selecting dynamic shared memory implementation ... posix</span><br><span class="line">selecting default max_connections ... 100</span><br><span class="line">selecting default shared_buffers ... 128MB</span><br><span class="line">selecting default time zone ... UTC</span><br><span class="line">creating configuration files ... ok</span><br><span class="line">running bootstrap script ... ok</span><br><span class="line">sh: locale: not found</span><br><span class="line">2023-04-24 07:29:18.876 UTC [31] WARNING:  no usable system locales were found</span><br><span class="line">performing post-bootstrap initialization ... ok</span><br><span class="line">syncing data to disk ... ok</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Success. You can now start the database server using:</span><br><span class="line"></span><br><span class="line">    pg_ctl -D /var/lib/postgresql/data -l logfile start</span><br><span class="line"></span><br><span class="line">initdb: warning: enabling &quot;trust&quot; authentication for local connections</span><br><span class="line">You can change this by editing pg_hba.conf or using the option -A, or</span><br><span class="line">--auth-local and --auth-host, the next time you run initdb.</span><br><span class="line">waiting for server to start....2023-04-24 07:29:22.836 UTC [37] LOG:  starting PostgreSQL 14.1 on x86_64-pc-linux-musl, compiled by gcc (Alpine 10.3.1_git20211027) 10.3.1 20211027, 64-bit</span><br><span class="line">2023-04-24 07:29:22.862 UTC [37] LOG:  listening on Unix socket &quot;/var/run/postgresql/.s.PGSQL.5432&quot;</span><br><span class="line">2023-04-24 07:29:22.890 UTC [38] LOG:  database system was shut down at 2023-04-24 07:29:21 UTC</span><br><span class="line">2023-04-24 07:29:22.910 UTC [37] LOG:  database system is ready to accept connections</span><br><span class="line"> done</span><br><span class="line">server started</span><br><span class="line"></span><br><span class="line">/usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*</span><br><span class="line"></span><br><span class="line">waiting for server to shut down...2023-04-24 07:29:23.015 UTC [37] LOG:  received fast shutdown request</span><br><span class="line">.2023-04-24 07:29:23.017 UTC [37] LOG:  aborting any active transactions</span><br><span class="line">2023-04-24 07:29:23.019 UTC [37] LOG:  background worker &quot;logical replication launcher&quot; (PID 44) exited with exit code 1</span><br><span class="line">2023-04-24 07:29:23.021 UTC [39] LOG:  shutting down</span><br><span class="line">2023-04-24 07:29:23.080 UTC [37] LOG:  database system is shut down</span><br><span class="line"> done</span><br><span class="line">server stopped</span><br><span class="line"></span><br><span class="line">PostgreSQL init process complete; ready for start up.</span><br><span class="line"></span><br><span class="line">2023-04-24 07:29:23.207 UTC [1] LOG:  starting PostgreSQL 14.1 on x86_64-pc-linux-musl, compiled by gcc (Alpine 10.3.1_git20211027) 10.3.1 20211027, 64-bit</span><br><span class="line">2023-04-24 07:29:23.208 UTC [1] LOG:  listening on IPv4 address &quot;0.0.0.0&quot;, port 5432</span><br><span class="line">2023-04-24 07:29:23.208 UTC [1] LOG:  listening on IPv6 address &quot;::&quot;, port 5432</span><br><span class="line">2023-04-24 07:29:23.211 UTC [1] LOG:  listening on Unix socket &quot;/var/run/postgresql/.s.PGSQL.5432&quot;</span><br><span class="line">2023-04-24 07:29:23.238 UTC [49] LOG:  database system was shut down at 2023-04-24 07:29:23 UTC</span><br><span class="line">2023-04-24 07:29:23.257 UTC [1] LOG:  database system is ready to accept connections</span><br></pre></td></tr></table></figure><p>进入容器内的 shell，切换到 postgres 用户，切换到 SQL Shell(psql)</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># docker exec -it postgres-test bash</span><br><span class="line">bash-5.1# su postgres</span><br><span class="line">/ $ psql</span><br><span class="line">psql (14.1)</span><br><span class="line">Type &quot;help&quot; for help.</span><br><span class="line"></span><br><span class="line">postgres=#</span><br></pre></td></tr></table></figure><p>执行 <code>\l</code> 查看所有数据库，<code>\q</code> 退出 psql</p><p>如果我们想用图形化应用来连接 docker 中的 postgresql，需要用到刚才建立容器时使用的端口。例如我刚才用的是 <code>2345:5432</code>，那么我应该用此时服务器的 IP 地址和 2345 端口。</p><p>我使用的是免费的 <a href="https://dbeaver.io/">DBeaver</a>，它在 GitHub 上面有 3 万多颗星⭐️。</p><p>「新建数据库连接」选择 postgres，填写 IP 地址、端口和密码。</p><p><img src="/img/2023/postgresql-DBeaver.webp" alt="postgresql-DBeaver"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;目前发现很多开源项目都使用 postgresql 来存放数据，因此我认为很有必要学习看看。&lt;/p&gt;
+&lt;p&gt;一开始我使用 Rock 5B 本地安装 postgresql，安装的是 14 的版本。之后要修改配置文件，才能够外部访问。感觉还有挺多需要折腾的。&lt;/p&gt;
+&lt;p&gt;后来我</summary>
+      
+    
+    
+    
+    
+    <category term="docker" scheme="https://powersee.github.io/tags/docker/"/>
+    
+    <category term="SQL" scheme="https://powersee.github.io/tags/SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>chkservice 图形化管理 systemd</title>
+    <link href="https://powersee.github.io/2023/04/chkservice/"/>
+    <id>https://powersee.github.io/2023/04/chkservice/</id>
+    <published>2023-04-23T16:09:15.000Z</published>
+    <updated>2023-04-23T16:11:09.485Z</updated>
+    
+    <content type="html"><![CDATA[<p>我觉得使用 systemctl 来管理 systemd 服务太繁琐了，想了解有没有什么工具，可以更加方便的管理。</p><p>于是通过 Google 搜 systemd gui 发现了 <a href="https://github.com/linuxenko/chkservice">chkservice</a></p><p>是一个开源项目，有 300 多颗星，不过好久没更新了。</p><p>我们可以直接使用 apt 来安装</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt install chkservice</span><br></pre></td></tr></table></figure><p>其它发行版可以编译后安装。</p><p>在终端直接执行 chkservice 就可以运行起来。</p><p><img src="/img/2023/chkservice.webp" alt="chkservice"></p><p>按上下键可以切换，这个不用说应该都会，但是其它的用法呢？GitHub 上面也没有文档。</p><p>其实只要我们输入 <code>?</code> 就能看到帮助菜单，也就是按住 shift 再按一下 <code>/?</code> 这颗按键。</p><p><img src="/img/2023/chkservice-help.webp" alt="chkservice-help"></p><p>挺好的，按 <code>s</code> 键可以启动或停止，空格键可以开启关闭「开机自启」。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;我觉得使用 systemctl 来管理 systemd 服务太繁琐了，想了解有没有什么工具，可以更加方便的管理。&lt;/p&gt;
+&lt;p&gt;于是通过 Google 搜 systemd gui 发现了 &lt;a href=&quot;https://github.com/linuxenko/chkse</summary>
+      
+    
+    
+    
+    
+    <category term="Linux" scheme="https://powersee.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>命令行中的文件管理器 ranger</title>
+    <link href="https://powersee.github.io/2023/04/ranger/"/>
+    <id>https://powersee.github.io/2023/04/ranger/</id>
+    <published>2023-04-22T16:10:57.000Z</published>
+    <updated>2023-04-22T16:11:59.036Z</updated>
+    
+    <content type="html"><![CDATA[<p>ranger 一个开源的文件管理器，目前（2023年04月22日）在 <a href="https://github.com/ranger/ranger">GitHub</a> 上面有 13.2k 颗星。它特别的地方在于，它是在终端里面使用的文件管理器。</p><p>我们可以通过 pip 来安装</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install ranger-fm</span><br></pre></td></tr></table></figure><p>安装好后，输入 ranger 就可以打开它。</p><p><a href="https://github.com/ranger/ranger/wiki/Official-user-guide">官方用户指导</a></p><p>打开之后默认是分成两栏或者三栏的，我们可以使用方向键来移动。</p><p>其实和 vim 的使用方法很像的，例如输入冒号 : 之后，可以用 set 来开关各种功能。</p><p><img src="/img/2023/ranger-set-command.webp" alt="ranger-set-command"></p><p>我这里输入 <code>:set draw_borders both</code> 来打开边框。敲下回车键之后，边框就出来了。个人感觉这样比较好看，而且区别清晰，更直观。</p><p><img src="/img/2023/ranger-border.webp" alt="ranger-border"></p><p>其实从顶部和底部，我们还可以获取到很多信息。顶部就是当前的路径，和在 Windows 里使用「资源管理器」很像。</p><p>底部可以看到文件的修改时间。右边可以看到磁盘的剩余空间。</p><p>按下键盘上的 g 会弹出快捷指令。此时再按一下 h，就可以跳转到用户目录下。就是 go home。我经常使用它来切换路径。</p><p><img src="/img/2023/ranger-g.webp" alt="ranger-g"></p><p>按下 z 也会弹出指令，主要是更改一些设置</p><p><img src="/img/2023/ranger-z.webp" alt="ranger-z"></p><p>例如按 h 就可以显示隐藏文件。（除了使用 zh 之外，也可以使用退格键Backspace）</p><p>举一个例子，比如说我想查看 postgresql 的配置文件。那么以前我得这么做</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /etc/postgresql</span><br><span class="line">ls</span><br><span class="line">cd 14</span><br><span class="line">ls</span><br><span class="line">cd main</span><br><span class="line">ls</span><br></pre></td></tr></table></figure><p>不断地使用 cd 和 ls</p><p>但是我现在使用 ranger 的话，效率就提高很多了</p><p>先按 <code>ge</code> 就可以切换到 &#x2F;etc 里面，然后我可以再按 <code>zz</code> 调出过滤器，输入 post，它就会筛选出带 post 的文件或者文件夹。（比 search 好用，search 还得输入文字之后按回车键，filter 是实时的）</p><p><img src="/img/2023/ranger-filter.webp" alt="ranger-filter"></p><p>之后我只需要一直按方向键右 → 来进入文件夹，还可以预览文件的内容。</p><p><img src="/img/2023/ranger-pg-config.webp" alt="ranger-pg-config"></p><p>再说说一些基本操作</p><p>ranger 默认情况下，是使用 vim 来打开文本文件的，例如上面的 conf 或者 py 等等。如果我想使用 nano 来打开，那可以先按 <code>r</code> 再输入 nano 回车。</p><p>删除文件可以用 F8</p><p>复制粘贴，先复制 yy 再粘贴 pp</p><p>剪切粘贴 dd pp</p><p>不过这样只是对单个文件的操作，如果要操作多个，可以先用空格键标记文件，此时文件名会高亮，并且缩进一个字符。</p><p><img src="/img/2023/ranger-space-Mark.jpg" alt="ranger-space-Mark"></p><p>再按一次空格键可以取消标记。</p><p>重命名文件 cw</p><p>我自己给 ranger 设置了别名 rr</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">alias rr=&#x27;ranger&#x27;</span><br></pre></td></tr></table></figure><p>这样可以更快速地打开它。</p><h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>按 g 的时候会弹出很多路径让我们快捷切换。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">key          command</span><br><span class="line"> L           cd -r %f</span><br><span class="line"> l           cd -r .</span><br><span class="line"> /           cd /</span><br><span class="line"> r           cd /</span><br><span class="line"> d           cd /dev</span><br><span class="line"> e           cd /etc</span><br><span class="line"> m           cd /media</span><br><span class="line"> M           cd /mnt</span><br><span class="line"> o           cd /opt</span><br><span class="line"> s           cd /srv</span><br><span class="line"> p           cd /tmp</span><br><span class="line"> u           cd /usr</span><br><span class="line"> ?           cd /usr/share/doc/ranger</span><br><span class="line"> v           cd /var</span><br><span class="line"> h           cd ~</span><br><span class="line"> i           eval fm.cd(&#x27;/run/media/&#x27; + os.getenv(&#x27;USER&#x27;))</span><br><span class="line"> R           eval fm.cd(ranger.RANGERDIR)</span><br><span class="line"> g           move to=0</span><br><span class="line"> c           tab_close</span><br><span class="line"> T           tab_move -1</span><br><span class="line"> t           tab_move 1</span><br><span class="line"> n           tab_new</span><br></pre></td></tr></table></figure><p>我们其实是可以自定义这些路径的。我们在终端执行</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ranger --copy-config=rc.conf</span><br></pre></td></tr></table></figure><p>然后到 ~&#x2F;.config&#x2F;ranger 里面找到这个文件，一共有 700 多行。到 450 行可以看到这些</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">450 map gh cd ~</span><br><span class="line">451 map ge cd /etc</span><br><span class="line">452 map gu cd /usr</span><br><span class="line">453 map gd cd /dev</span><br><span class="line">454 map gl cd -r .</span><br><span class="line">455 map gL cd -r %f</span><br><span class="line">456 map go cd /opt</span><br><span class="line">457 map gv cd /var/log/</span><br></pre></td></tr></table></figure><p>我们可以修改，或者添加都行，例如我添加多一行</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">map g1 cd /etc/postgresql/14/main/</span><br></pre></td></tr></table></figure><p>那么我只要按 <code>g1</code> 就可以切换到 <code>/etc/postgresql/14/main/</code></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;ranger 一个开源的文件管理器，目前（2023年04月22日）在 &lt;a href=&quot;https://github.com/ranger/ranger&quot;&gt;GitHub&lt;/a&gt; 上面有 13.2k 颗星。它特别的地方在于，它是在终端里面使用的文件管理器。&lt;/p&gt;
+&lt;p&gt;我们</summary>
+      
+    
+    
+    
+    
+    <category term="随笔" scheme="https://powersee.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自建 GitHub 代理服务</title>
+    <link href="https://powersee.github.io/2023/04/github-proxy/"/>
+    <id>https://powersee.github.io/2023/04/github-proxy/</id>
+    <published>2023-04-21T16:08:43.000Z</published>
+    <updated>2023-04-21T16:28:09.499Z</updated>
+    
+    <content type="html"><![CDATA[<p>我的浏览器有装一个<a href="https://github.com/RC1844/FastGithub">油猴脚本</a></p><p>这样我在访问 GitHub 的时候，有一些代理选项。</p><p><img src="/img/2023/image-20230420172817331.webp" alt="image-20230420172817331"></p><p>因为大多数时候，我如果不用梯子，直接点击原链接，是没法下载成功的。</p><p>但是后面的代理链接，有时候也不是很好用，像这种套 cloudflare 的，一天 10 万次居然都能被用完。看来苦逼的国内用户需求还是挺大的。</p><p>它的原理其实也不难。</p><p>原链接：<a href="https://github.com/usefathom/fathom/releases/download/v1.3.1/fathom_1.3.1_linux_arm64.tar.gz">https://github.com/usefathom/fathom/releases/download/v1.3.1/fathom_1.3.1_linux_arm64.tar.gz</a></p><p>代理链接：<a href="https://github.rc1844.workers.dev/usefathom/fathom/releases/download/v1.3.1/fathom_1.3.1_linux_amd64.tar.gz">https://github.rc1844.workers.dev/usefathom/fathom/releases/download/v1.3.1/fathom_1.3.1_linux_amd64.tar.gz</a></p><p>也就是把 <a href="https://github.com/">https://github.com</a> 换成 <a href="https://github.rc1844.workers.dev/">https://github.rc1844.workers.dev</a></p><p>workers.dev 是 cloudflare 的域名，我们也可以自建自己的 worker 来代理 GitHub。需要使用开源项目：<a href="https://github.com/hunshcn/gh-proxy">https://github.com/hunshcn/gh-proxy</a></p><p>项目的 readme 里面也有写怎么自建 worker 代理。网上也有挺多人写教程的，我自己搭建了一个，结果发现，我的网络好像连访问 cf 都不流畅……</p><p>后来了解到，原来是 workers.dev 已经被墙了……</p><p>解决方法是绑定自己的域名，不过它要求域名的 DNS 解析，得是托管在 cloudflare 才行。</p><p>接着我想研究看看搭建在自己的服务器上，反正服务器的流量一般也用不完。</p><p>使用 docker 的话，很快，一行命令就行，没什么难度。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d --name=&quot;gh-proxy-py&quot; \</span><br><span class="line">  -p 0.0.0.0:80:80 \</span><br><span class="line">  --restart=always \</span><br><span class="line">  hunsh/gh-proxy-py:latest</span><br></pre></td></tr></table></figure><p>不过这镜像有点大，居然要 910MB ……</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hunsh/gh-proxy-py        latest    745d6b4639c3   23 months ago   910MB</span><br></pre></td></tr></table></figure><p>体验一下看到有效果，赶紧把它删了，我这小小的服务器空间宝贵，舍不得。</p><p>我打算部署 python 版本，因为相比之下占用空间就小很多了。</p><p>先把项目克隆到服务器上，然后修改 <code>main.py</code></p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/hunshcn/gh-proxy</span><br></pre></td></tr></table></figure><p>需要安装依赖</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install flask requests</span><br></pre></td></tr></table></figure><p>运行起来</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 app/main.py</span><br></pre></td></tr></table></figure><p>也是很简单就可以运行起来，看到可以正常访问之后，我再次把 ip 改为 127.0.0.1 端口就随便设置一个，之后再使用反向代理。</p><p>目前我就使用 screen 让它在后台运行着，比较好的处理方式应该是用 systemd。</p><p>观察了下，感觉还行，占用的系统资源并不多。</p><p>我在自己的服务器上搭建了一个，在 cloudflare 的 workers 也搭建一个。之后可以将自己的链接添加到油猴脚本里面。</p><p><img src="/img/2023/my-github-proxy-shadow.webp" alt="my-github-proxy-shadow"></p><p>就是替换掉脚本中原来的，这样我可以在 GitHub 上面点击那个属于自己的按钮。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;我的浏览器有装一个&lt;a href=&quot;https://github.com/RC1844/FastGithub&quot;&gt;油猴脚本&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这样我在访问 GitHub 的时候，有一些代理选项。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2023/image-20230</summary>
+      
+    
+    
+    
+    
+    <category term="随笔" scheme="https://powersee.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+</feed>
