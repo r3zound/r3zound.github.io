@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog" />
+  <meta name="description" content="Powersee 的个人博客" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  <link rel="dns-prefetch" href="https://at.alicdn.com">
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.css">
+	<link rel="shortcut icon" href="/blog.svg" title="Favicon">
+	<title>VPS离线下载文件最简易方案</title>
+  
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Powersee的博客" type="application/atom+xml">
+</head>
+<body>
+  <canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Powersee的博客</a>
+  <a class="face-img" href="/">
+    <!-- <img src="/./img/powersee.jpeg"> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+      <rect width="100%" height="100%" fill="black"></rect>
+      <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">Power</text>
+        <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">_see</text>
+    </svg>
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    VPS离线下载文件最简易方案
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2018-08-03T21:48:34.000Z" itemprop="datePublished">2018-08-04</time>
+      </li>
+      <li>
+        
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <h3 id="所使用的工具："><a href="#所使用的工具：" class="headerlink" title="所使用的工具："></a>所使用的工具：</h3><ul>
+<li>Aria2</li>
+<li>caddy</li>
+<li>AriaNg</li>
+</ul>
+<p>脚本来自<strong>逗比根据地</strong></p>
+<h3 id="首先安装-下载工具–-Aria2"><a href="#首先安装-下载工具–-Aria2" class="headerlink" title="首先安装 下载工具– Aria2"></a>首先安装 下载工具– Aria2</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/aria2.sh &amp;&amp; chmod +x aria2.sh &amp;&amp; bash aria2.sh</span><br></pre></td></tr></table></figure>
+<p>按 1 ，就可以安装。成功后会看到这样的显示。<br><img src="/img/2018/Aria2-done.png" alt="image"></p>
+<p>由于我们用 ssh 登录 vps 后，默认是在 root 目录下。因此我想让下载位置也在这之下，方便以后用命令行删除文件。</p>
+<p>因此需先创建文件夹</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir -p web/down</span><br></pre></td></tr></table></figure>
+<p>然后进入 Aria2 来需改下载位置和密码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./aria2.sh</span><br></pre></td></tr></table></figure>
+<p>选择 7. 修改 配置文件</p>
+<p>再选择 4.  修改 Aria2 密码+端口+文件下载位置</p>
+<p>密码就个人按喜好改了(后面要用到)，端口就不改了，按回车键使用默认即可，下载位置就改为新的路径</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/root/web/down</span><br></pre></td></tr></table></figure>
+<p>再次看到 ==Aria2 启动成功 !  == 这部分就完成了。</p>
+<hr>
+<h3 id="安装使用界面"><a href="#安装使用界面" class="headerlink" title="安装使用界面"></a>安装使用界面</h3><p>下载工具安装完成了，那要怎么用它呢？难道用命令行来下载文件？虽然确实可以，不过这有点……</p>
+<p>还是图形界面比较任性化，点点几下就行。</p>
+<h4 id="安装-web-服务器-caddy"><a href="#安装-web-服务器-caddy" class="headerlink" title="安装 web 服务器 caddy"></a>安装 web 服务器 caddy</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/caddy_install.sh &amp;&amp; chmod +x caddy_install.sh &amp;&amp; bash caddy_install.sh</span><br></pre></td></tr></table></figure>
+<h4 id="写入配置到-Caddy-配置文件"><a href="#写入配置到-Caddy-配置文件" class="headerlink" title="写入配置到 Caddy 配置文件"></a>写入配置到 Caddy 配置文件</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">echo &quot;:80 &#123;</span><br><span class="line"> root /root/web</span><br><span class="line"> timeouts none</span><br><span class="line"> gzip</span><br><span class="line"> browse</span><br><span class="line">&#125;&quot; &gt; /usr/local/caddy/Caddyfile</span><br></pre></td></tr></table></figure>
+
+<h4 id="下载-AriaNg"><a href="#下载-AriaNg" class="headerlink" title="下载 AriaNg"></a>下载 AriaNg</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd web &amp;&amp; wget https://github.com/mayswind/AriaNg/releases/download/0.4.0/aria-ng-0.4.0.zip &amp;&amp; unzip aria-ng-0.4.0.zip</span><br></pre></td></tr></table></figure>
+<p>这里出错的话，可能是因为没有安装 unzip 这个应用，根据提示安装下即可。</p>
+<h4 id="启动-caddy"><a href="#启动-caddy" class="headerlink" title="启动 caddy"></a>启动 caddy</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/etc/init.d/caddy start</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="下载文件并取回本地"><a href="#下载文件并取回本地" class="headerlink" title="下载文件并取回本地"></a>下载文件并取回本地</h3><p>这时候就可以用浏览器，通过 IP 或者域名来访问下载界面。需要设置一下。<br><img src="/img/2018/AriaNg.png" alt="image"></p>
+<p>第一个红圈可以填 IP 和域名，都行的。第二个红圈就是填刚才设置的密码了。</p>
+<p>连接上会有左下角有绿色的已连接提醒。然后就可以下载文件了，也可以下载种子。</p>
+<p>下载完就在我们的 vps 里面，那要怎么取回本地呢？只需要在浏览器地址栏里，在  IP 或者域名后面加上 /down 就行。例如</p>
+<blockquote>
+<p>115.152.148.55/down</p>
+</blockquote>
+<p>就会显示下载的那些文件。</p>
+<hr>
+<p>这个方法呢，是我个人觉得比较简易的，比较适合我自己的。下载完就在命令行里用</p>
+<blockquote>
+<p>rm -rf web/down/*</p>
+</blockquote>
+<p>来删除所有的文件。</p>
+<p>因此也就不去搞那些需要 PHP 的了。也因为下载完就删除，所以也没必要设置需要密码才能访问文件列表。</p>
+
+      </div>
+        <div class="support-author">
+          <p>博客链接:
+          <a href="https://powersee.github.io/" target="_blank">https://powersee.github.io/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+          <p>备份博客:
+          <a href="https://blog.powersee.top/" target="_blank">https://blog.powersee.top/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+
+        </div>
+      </div>
+    </div>
+   </div>
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a target="_blank" rel="noopener" href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a target="_blank" rel="noopener" href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2018-2023 </p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = ''.split(',');
+  var canConsole = 'false';
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+
+}(consoleConfig));
+
+// js 也放到 腾讯云 cos
+</script><script type="text/javascript" src="https://blog-img-1259157239.cos.ap-guangzhou.myqcloud.com/js/main.js"></script>
+<script type="text/javascript" src="/js/my.js"></script>
+
+  <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+</body>
+</html>

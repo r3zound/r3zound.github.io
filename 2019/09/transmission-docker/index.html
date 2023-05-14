@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog" />
+  <meta name="description" content="Powersee 的个人博客" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  <link rel="dns-prefetch" href="https://at.alicdn.com">
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.css">
+	<link rel="shortcut icon" href="/blog.svg" title="Favicon">
+	<title>BT挂机利器 transmission docker 安装法</title>
+  
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Powersee的博客" type="application/atom+xml">
+</head>
+<body>
+  <canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Powersee的博客</a>
+  <a class="face-img" href="/">
+    <!-- <img src="/./img/powersee.jpeg"> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+      <rect width="100%" height="100%" fill="black"></rect>
+      <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">Power</text>
+        <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">_see</text>
+    </svg>
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    BT挂机利器 transmission docker 安装法
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2019-09-07T14:11:40.000Z" itemprop="datePublished">2019-09-07</time>
+      </li>
+      <li>
+        
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <p>本文主要介绍如何在服务器上安装 docker，并安装 transmission 来下载 BT 种子任务。并且取回本地。</p>
+<blockquote>
+<p>要想进行下面的操作，需要有一个服务器，如果你没有的话， <a target="_blank" rel="noopener" href="https://www.vultr.com/?ref=8161953-4F">点此链接注册充值 10 美元送 50 美元</a><br>送的 50美元只有一个月的有效期。（所以不要省，开贵点的机器吧）</p>
+</blockquote>
+<p>上次已经用 docker 安装了 qbittorrent，这是一个非常强大的 BT 软件，我个人是非常喜欢的。但是，它占的内存比较大，如果服务器还要做一些其它的工作，用这个可能就不太合适了。</p>
+<p>于是， transmission 是一个不错的选择。它对硬件的配置要求非常的低，甚至在路由器上面都可以运行。</p>
+<blockquote>
+<p>这次使用一台纯净系统的服务器来装。</p>
+</blockquote>
+<h3 id="安装-docker"><a href="#安装-docker" class="headerlink" title="安装 docker"></a>安装 docker</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -sSL https://get.docker.com/ | sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装-transmission"><a href="#安装-transmission" class="headerlink" title="安装 transmission"></a>安装 transmission</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">--restart=always \</span><br><span class="line">--name transmission \</span><br><span class="line">-v /home/tr/torrents:/to_download \</span><br><span class="line">-v /home/tr/download:/output \</span><br><span class="line">-p 9091:9091 \</span><br><span class="line">-p 51413:51413 \</span><br><span class="line">-e USERNAME=admin \</span><br><span class="line">-e PASSWORD=admin \</span><br><span class="line">jaymoulin/transmission</span><br></pre></td></tr></table></figure>
+<h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><p>输入 IP:9091 即可进入 transmission 的管理界面</p>
+<blockquote>
+<p>由于未知原因，现在创建好 transmission 这个容器之后，在输入用户名和密码那里，会一直被卡住，点登录之后还是让你再输入，完全无法进入……</p>
+</blockquote>
+<blockquote>
+<p>这不是最重要的问题，问题是，我发现我输入账户密码后，无法进入界面。然而，我直接什么都不输入，按回车，却可以进入……<br>为了确认，我还专门有手机流量试一下，发现确实，什么都不输入就可以进入……所以看重安全的朋友还是不要用这个 transmission 容器了。</p>
+</blockquote>
+<p>下载后的文件是保存在 <code>/home/tr/download</code> 这个路径下的</p>
+<p>想要取回本地，可以和上一篇文章一样，安装 caddy ，或者也可以使用 FTP 的方法。</p>
+<h3 id="取回本地"><a href="#取回本地" class="headerlink" title="取回本地"></a>取回本地</h3><p>但是下载好后文件是在服务器里，我想把它取回到电脑或者手机。那么，开启一个 http 服务即可。这里推荐两个方案：</p>
+<h2 id="一、h5ai"><a href="#一、h5ai" class="headerlink" title="一、h5ai"></a>一、h5ai</h2><p>一行命令即可，最简单</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d -p 8055:80 -v /home/tr/download:/h5ai --name h5ai ilemonrain/h5ai:full -d</span><br></pre></td></tr></table></figure>
+<p>装好后在浏览器输入 <code>ip:8085</code> 就可以看到里面的内容</p>
+<h2 id="二、caddy"><a href="#二、caddy" class="headerlink" title="二、caddy"></a>二、caddy</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/caddy_install.sh &amp;&amp; chmod +x caddy_install.sh &amp;&amp; bash caddy_install.sh</span><br></pre></td></tr></table></figure>
+<p>写入配置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">echo &quot;:80 &#123;  </span><br><span class="line"> root /home/tr</span><br><span class="line"> timeouts none  </span><br><span class="line"> gzip  </span><br><span class="line"> browse  </span><br><span class="line">&#125;&quot; &gt; /usr/local/caddy/Caddyfile</span><br></pre></td></tr></table></figure>
+<p>启动 caddy</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/etc/init.d/caddy start</span><br></pre></td></tr></table></figure>
+<p>开放服务器 80 端口</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ufw allow 80</span><br></pre></td></tr></table></figure>
+<p>完成后就可以在浏览器里，输入 <code>IP地址</code> 来访问下载好的文件了。如果是 MP4 文件的话，还可以支持在线播放。</p>
+
+      </div>
+        <div class="support-author">
+          <p>博客链接:
+          <a href="https://powersee.github.io/" target="_blank">https://powersee.github.io/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+          <p>备份博客:
+          <a href="https://blog.powersee.top/" target="_blank">https://blog.powersee.top/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+
+        </div>
+      </div>
+    </div>
+   </div>
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a target="_blank" rel="noopener" href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a target="_blank" rel="noopener" href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2018-2023 </p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = ''.split(',');
+  var canConsole = 'false';
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+
+}(consoleConfig));
+
+// js 也放到 腾讯云 cos
+</script><script type="text/javascript" src="https://blog-img-1259157239.cos.ap-guangzhou.myqcloud.com/js/main.js"></script>
+<script type="text/javascript" src="/js/my.js"></script>
+
+  <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+</body>
+</html>

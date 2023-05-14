@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog" />
+  <meta name="description" content="Powersee 的个人博客" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  <link rel="dns-prefetch" href="https://at.alicdn.com">
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.css">
+	<link rel="shortcut icon" href="/blog.svg" title="Favicon">
+	<title>搭建自动签到平台——qiandao</title>
+  
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Powersee的博客" type="application/atom+xml">
+</head>
+<body>
+  <canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Powersee的博客</a>
+  <a class="face-img" href="/">
+    <!-- <img src="/./img/powersee.jpeg"> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+      <rect width="100%" height="100%" fill="black"></rect>
+      <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">Power</text>
+        <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">_see</text>
+    </svg>
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    搭建自动签到平台——qiandao
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2020-09-05T09:37:26.000Z" itemprop="datePublished">2020-09-05</time>
+      </li>
+      <li>
+        
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <blockquote>
+<p>来自 2023年04月03日 的更新，修改了一些内容。</p>
+</blockquote>
+<p>Github 项目：<a target="_blank" rel="noopener" href="https://github.com/qiandao-today/qiandao">https://github.com/qiandao-today/qiandao</a></p>
+<p>本文主要介绍 docker 安装法</p>
+<p>不定时上传一些模板到网盘中，网盘地址：<a target="_blank" rel="noopener" href="http://veger.ys168.com/">http://veger.ys168.com/</a></p>
+<h3 id="一、导入镜像"><a href="#一、导入镜像" class="headerlink" title="一、导入镜像"></a>一、导入镜像</h3><p>直接拉取镜像，可以使用下面这行命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker pull a76yyyy/qiandao</span><br></pre></td></tr></table></figure>
+
+<p>拉取不了镜像的，<del>可以使用我放到网盘中的镜像</del> <a target="_blank" rel="noopener" href="http://pan-yz.chaoxing.com/share/info/b63ab64054fc6e0a">超星网盘地址</a></p>
+<blockquote>
+<p>建议还是使用 docker 镜像源吧，网上搜索下相关的教程。现在新的 qiandao 应用好用了很多。</p>
+</blockquote>
+<p>百度网盘链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1CteLUgJQR_Rz7Sh3G4E0Pw">https://pan.baidu.com/s/1CteLUgJQR_Rz7Sh3G4E0Pw</a><br>提取码：6666</p>
+<p>下载后是一个 tar 结尾的文件，可以通过 portainer 将它导入机器里。如果你的机器里没有装 portainer ，就得在命令行中导入了。可以通过 smb 、ftp 、scp 等方式，将文件传入到机器里，之后，在终端中，cd 到文件所在的目录。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker load -i qiandao.tar</span><br></pre></td></tr></table></figure>
+
+<p>就可以导入镜像。</p>
+<h3 id="二、创建和启动容器"><a href="#二、创建和启动容器" class="headerlink" title="二、创建和启动容器"></a>二、创建和启动容器</h3><h4 id="在-portainer-中创建容器"><a href="#在-portainer-中创建容器" class="headerlink" title="在 portainer 中创建容器"></a>在 portainer 中创建容器</h4><p>⚠️注意现在用的是 a76yyyy&#x2F;qiandao 了。</p>
+<p><img src="/img/2020/create-container.webp" alt="创建容器"></p>
+<h4 id="在群晖中创建容器"><a href="#在群晖中创建容器" class="headerlink" title="在群晖中创建容器"></a>在群晖中创建容器</h4><p>打开【docker】图标，【映像】，选择 qiandao ，【启动】，【高级设置】</p>
+<p><img src="/img/2020/synology-create-qiandao.webp" alt="群晖创建qiandao容器">设置一下端口就行，之后 【下一步】，【应用】。</p>
+<h3 id="三、使用服务器创建容器"><a href="#三、使用服务器创建容器" class="headerlink" title="三、使用服务器创建容器"></a>三、使用服务器创建容器</h3><blockquote>
+<p>要想进行下面的操作，需要有一个服务器，如果你没有的话， <a target="_blank" rel="noopener" href="https://www.vultr.com/?ref=8161953-4F">点此链接注册充值 10 美元送 50 美元</a><br>送的 50美元只有一个月的有效期。（所以不要省，开贵点的机器吧）</p>
+</blockquote>
+<blockquote>
+<p>使用这家的服务器，是因为它可以随时的删除，不像其它的，一买就得一年。而且，这家还可以选择自动安装 docker ，又节省了一些时间。</p>
+</blockquote>
+<ol>
+<li>点击左边的 billing</li>
+<li>充值方式支持 <strong>支付宝</strong> <strong>微信</strong>（但最少 10 美元）</li>
+<li>充值好后 ，点右边那个 <strong>+</strong> 的圆圈</li>
+<li>然后选择服务器的<strong>地区</strong>（日本和新加坡会比较快，不过有可能连接不上，选美国也可以。韩国好像是最近才有的，可以试试。）</li>
+<li><strong>Server Type</strong>点 <strong>application</strong> ，里面就有 <strong>docker</strong></li>
+<li><strong>Server Size</strong> 就是服务器的配置，越高就越贵。（如果有赠送的 50 美元，那就选那个 40 美元的吧，反正你不花，下个月也没了）</li>
+<li>把下面的 <strong>Enable IPv6</strong> 前面的 框 打钩✅（可以使我们下载时连接到更多的用户）</li>
+<li>然后点击右下角的 deploy now</li>
+<li>等待几分钟……</li>
+<li>就可以看到服务器部署好了，给了一个 ip 地址。</li>
+</ol>
+<p>等待服务器装好系统，然后可以用 xshell 之类的工具，连接服务器。主要用到服务器的 ip ，用户名，密码。</p>
+<p>连接服务器后，我们便可以在终端中拉取镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker pull a76yyyy/qiandao</span><br></pre></td></tr></table></figure>
+
+<p>建立容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d --name qiandao -p 9527:80 a76yyyy/qiandao</span><br></pre></td></tr></table></figure>
+
+<p>此时用的端口是 9527，然后在浏览器中输入 ip:9527，例如 <code>132.123.22.33:9527</code> 这样的格式，就可以访问签到平台。</p>
+<p>使用服务器的好处是，你订阅公共模板应该不会出现什么问题。而已，你可以将你搭建的签到网站，分享给你的朋友，这样这个平台就可以多人使用。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>最简单的使用方法是用别人写好的模板，然后根据要求，看是要 cookie ，还是要账号密码，根据要求给对应的内容即可。</p>
+
+      </div>
+        <div class="support-author">
+          <p>博客链接:
+          <a href="https://powersee.github.io/" target="_blank">https://powersee.github.io/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+          <p>备份博客:
+          <a href="https://blog.powersee.top/" target="_blank">https://blog.powersee.top/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+
+        </div>
+      </div>
+    </div>
+   </div>
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a target="_blank" rel="noopener" href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a target="_blank" rel="noopener" href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2018-2023 </p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = ''.split(',');
+  var canConsole = 'false';
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+
+}(consoleConfig));
+
+// js 也放到 腾讯云 cos
+</script><script type="text/javascript" src="https://blog-img-1259157239.cos.ap-guangzhou.myqcloud.com/js/main.js"></script>
+<script type="text/javascript" src="/js/my.js"></script>
+
+  <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+</body>
+</html>

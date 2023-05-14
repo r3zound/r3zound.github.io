@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog" />
+  <meta name="description" content="Powersee 的个人博客" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  <link rel="dns-prefetch" href="https://at.alicdn.com">
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.css">
+	<link rel="shortcut icon" href="/blog.svg" title="Favicon">
+	<title>利用lnmp搭建wordpress</title>
+  
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Powersee的博客" type="application/atom+xml">
+</head>
+<body>
+  <canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Powersee的博客</a>
+  <a class="face-img" href="/">
+    <!-- <img src="/./img/powersee.jpeg"> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+      <rect width="100%" height="100%" fill="black"></rect>
+      <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">Power</text>
+        <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">_see</text>
+    </svg>
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    利用lnmp搭建wordpress
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2018-06-19T10:52:14.000Z" itemprop="datePublished">2018-06-19</time>
+      </li>
+      <li>
+        
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <p>#发现1.5正式版更新了，我自己也试了，所以现在把原来命令行里的 1.4 全部都换成 1.5 了</p>
+<h3 id="一，安装lnmp-Nginx-MySQL-PHP-环境"><a href="#一，安装lnmp-Nginx-MySQL-PHP-环境" class="headerlink" title="一，安装lnmp(Nginx/MySQL/PHP)环境"></a>一，安装lnmp(Nginx/MySQL/PHP)环境</h3><blockquote>
+<p>wget <a target="_blank" rel="noopener" href="http://soft2.vpser.net/lnmp/lnmp1.5-full.tar.gz">http://soft2.vpser.net/lnmp/lnmp1.5-full.tar.gz</a></p>
+</blockquote>
+<blockquote>
+<p>tar -zxvf lnmp1.5-full.tar.gz</p>
+</blockquote>
+<blockquote>
+<p>cd lnmp1.5-full</p>
+</blockquote>
+<blockquote>
+<p>./install.sh</p>
+</blockquote>
+<p>一路默认，虚拟机一个小时应该能安装好 之后就可以访问IP了</p>
+<p>默认的访问目录为这个</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/home/wwwroot/default</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="二，安装wordpress"><a href="#二，安装wordpress" class="headerlink" title="二，安装wordpress"></a>二，安装wordpress</h3><p>此时进入默认的访问目录的上一级</p>
+<blockquote>
+<p>cd /home/wwwroot/</p>
+</blockquote>
+<blockquote>
+<p>wget <a target="_blank" rel="noopener" href="https://cn.wordpress.org/wordpress-4.9.4-zh_CN.tar.gz">https://cn.wordpress.org/wordpress-4.9.4-zh_CN.tar.gz</a></p>
+</blockquote>
+<blockquote>
+<p>tar -zxvf wordpress-4.9.4-zh_CN.tar.gz</p>
+</blockquote>
+<blockquote>
+<p>mv default old</p>
+</blockquote>
+<blockquote>
+<p>mv wordpress default</p>
+</blockquote>
+<p>此时应该就可以访问wordpress了</p>
+<h3 id="三，创建数据库"><a href="#三，创建数据库" class="headerlink" title="三，创建数据库"></a>三，创建数据库</h3><blockquote>
+<p>mysql -u root -p</p>
+</blockquote>
+<p>输入密码，默认的话就是root</p>
+<blockquote>
+<p>create database wordpress;</p>
+</blockquote>
+<blockquote>
+<p>exit</p>
+</blockquote>
+<h3 id="四，给权限"><a href="#四，给权限" class="headerlink" title="四，给权限"></a>四，给权限</h3><blockquote>
+<p>chown -R 755 /home/wwwroot/</p>
+</blockquote>
+<blockquote>
+<p>chown -R www:www /home/wwwroot/</p>
+</blockquote>
+<hr>
+<p>此时输入IP即可访问配置 wordpress</p>
+
+      </div>
+        <div class="support-author">
+          <p>博客链接:
+          <a href="https://powersee.github.io/" target="_blank">https://powersee.github.io/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+          <p>备份博客:
+          <a href="https://blog.powersee.top/" target="_blank">https://blog.powersee.top/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+
+        </div>
+      </div>
+    </div>
+   </div>
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a target="_blank" rel="noopener" href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a target="_blank" rel="noopener" href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2018-2023 </p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = ''.split(',');
+  var canConsole = 'false';
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+
+}(consoleConfig));
+
+// js 也放到 腾讯云 cos
+</script><script type="text/javascript" src="https://blog-img-1259157239.cos.ap-guangzhou.myqcloud.com/js/main.js"></script>
+<script type="text/javascript" src="/js/my.js"></script>
+
+  <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog" />
+  <meta name="description" content="Powersee 的个人博客" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  <link rel="dns-prefetch" href="https://at.alicdn.com">
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.css">
+	<link rel="shortcut icon" href="/blog.svg" title="Favicon">
+	<title>用服务器来离线下载 BT 种子，体验千兆网络的魅力——docker 安装 qBittorrent，以及把文件取回手机</title>
+  
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Powersee的博客" type="application/atom+xml">
+</head>
+<body>
+  <canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Powersee的博客</a>
+  <a class="face-img" href="/">
+    <!-- <img src="/./img/powersee.jpeg"> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+      <rect width="100%" height="100%" fill="black"></rect>
+      <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">Power</text>
+        <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">_see</text>
+    </svg>
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    用服务器来离线下载 BT 种子，体验千兆网络的魅力——docker 安装 qBittorrent，以及把文件取回手机
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2019-08-29T01:54:24.000Z" itemprop="datePublished">2019-08-29</time>
+      </li>
+      <li>
+        
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <p><strong>此教程并不难，只要你会复制粘贴即可。</strong></p>
+<p>🌟🌟🌟搭配视频：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av65923774">用服务器来离线下载 BT 种子，体验千兆网络的魅力</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av84585591/">利用免费CDN加速取回BT资源</a></p>
+<blockquote>
+<p>要想进行下面的操作，需要有一个服务器，如果你没有的话， <a target="_blank" rel="noopener" href="https://www.vultr.com/?ref=8161953-4F">点此链接注册充值 10 美元送 50 美元</a><br>送的 50美元只有一个月的有效期。（所以不要省，开贵点的机器吧）</p>
+</blockquote>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><blockquote>
+<p>使用这家的服务器，是因为它可以随时的删除，不像其它的，一买就得一年。而且，这家还可以选择自动安装 docker ，又节省了一些时间。</p>
+</blockquote>
+<ol>
+<li>点击左边的 billing</li>
+<li>充值方式支持 <strong>支付宝</strong> <strong>微信</strong>（但最少 10 美元）</li>
+<li>充值好后 ，点右边那个 <strong>+</strong> 的圆圈</li>
+<li>然后选择服务器的<strong>地区</strong>（日本和新加坡会比较快，不过有可能连接不上，选美国也可以）</li>
+<li> <strong>Server Type</strong>点 <strong>application</strong> ，里面就有 <strong>docker</strong></li>
+<li> <strong>Server Size</strong> 就是服务器的配置，越高就越贵。（如果有赠送的 50 美元，那就选那个 40 美元的吧，反正你不花，下个月也没了）</li>
+<li>把下面的 <strong>Enable IPv6</strong> 前面的 框 打钩✅（可以使我们下载时连接到更多的用户）</li>
+<li>然后点击右下角的 deploy now</li>
+<li>等待几分钟……</li>
+<li>就可以看到服务器部署好了，给了一个 ip 地址。</li>
+</ol>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p> 我们要控制这台服务器，需要用 ssh 工具，这里我用 putty 来演示。</p>
+<blockquote>
+<p>如果用安卓手机的话，可以下载个 <strong>JuiceSSH</strong></p>
+</blockquote>
+<p>有能力的可以去 GitHub 下载：<a target="_blank" rel="noopener" href="https://github.com/larryli/PuTTY/releases">地址</a><br>无法在 GitHub 下载的，可以到我的网盘里下载：<a target="_blank" rel="noopener" href="http://veger.ys168.com/">地址</a>（在『电脑软件』里）</p>
+<p>下载后解压，打开 putty<br><img src="/img/2019/putty-config.webp" alt="putty 连接.png"><br>填上 IP 地址连接</p>
+<p>接着输入用户名和密码。（密码输入时不会显示的）</p>
+<p>连接后输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker pull linuxserver/qbittorrent</span><br></pre></td></tr></table></figure>
+<p>完成后输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker create \</span><br><span class="line">  --name=qbittorrent \</span><br><span class="line">  -e PUID=1000 \</span><br><span class="line">  -e PGID=1000 \</span><br><span class="line">  -e TZ=Aisa/Shanghai \</span><br><span class="line">  -e UMASK_SET=022 \</span><br><span class="line">  -e WEBUI_PORT=8080 \</span><br><span class="line">  -p 8999:8999 \</span><br><span class="line">  -p 8999:8999/udp \</span><br><span class="line">  -p 8080:8080 \</span><br><span class="line">  -v /path/to/appdata/config:/config \</span><br><span class="line">  -v /path/to/downloads:/downloads \</span><br><span class="line">  --restart unless-stopped \</span><br><span class="line">  linuxserver/qbittorrent</span><br></pre></td></tr></table></figure>
+<p>创建好后再启动</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker start qbittorrent</span><br></pre></td></tr></table></figure>
+<p>完成后就可以在浏览器里，输入 <code>IP:8080</code> 来访问 qB 了。</p>
+<blockquote>
+<p>补充，还需要到设置里面，在【连接】中，将【监听端口】改为 8999 才行。如图</p>
+</blockquote>
+<p><img src="/img/2020/qb%E7%9B%91%E5%90%AC%E7%AB%AF%E5%8F%A3.png" alt="qb监听端口"></p>
+<h2 id="取回本地"><a href="#取回本地" class="headerlink" title="取回本地"></a>取回本地</h2><p>但是下载好后文件是在服务器里，我想把它取回到电脑或者手机。那么，开启一个 http 服务即可。</p>
+<p>我在后期还写了这篇文章：<a href="/2020/01/three-ways-to-retrieve-the-file/">关于服务器资源取回本地的几种方法</a> 想通过浏览器将文件取回本地的朋友，可以了解一下。</p>
+<h3 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h3><p>看到有些人评论说用服务器下载会有风险，这个我也是知道的。因为国外的版权保护比较严格，所以有时会监控到你在下载 BT ，如果发现你下载的内容是盗版视频之类的，有可能会对你发出警告⚠️！</p>
+<p>但是，我已经用了两年多了，没有碰到过，所以才敢出这个教程。我认为可能和上传有关吧，不用上传太多应该就不太容易被查水表吧。所以我的分享率就设置为 2 而已。</p>
+<blockquote>
+<p>就算你真的被警告了，一般也就是叫你把视频删了而已。如果再严重点，我大不了就把这台服务器删了，然后重新开一台。（就跟我们在网吧里一样，这也是用 vultr 的好处。）</p>
+</blockquote>
+<p>而且，有的人问这个流量的问题，像视频中演示的，最便宜的套餐都有 1000G 流量，而且是上传 1000G，下载也 1000G ，正常使用一般是用不完的，只要设置一下这个分享率，按理是不会用超过的。</p>
+<p><img src="/img/2019/bandwidth.png" alt="bandi.png"><br>像我这一个月才用 200G ……</p>
+<p>总之一般用户下载是用不完的。</p>
+
+      </div>
+        <div class="support-author">
+          <p>博客链接:
+          <a href="https://powersee.github.io/" target="_blank">https://powersee.github.io/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+          <p>备份博客:
+          <a href="https://blog.powersee.top/" target="_blank">https://blog.powersee.top/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+
+        </div>
+      </div>
+    </div>
+   </div>
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a target="_blank" rel="noopener" href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a target="_blank" rel="noopener" href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2018-2023 </p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = ''.split(',');
+  var canConsole = 'false';
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+
+}(consoleConfig));
+
+// js 也放到 腾讯云 cos
+</script><script type="text/javascript" src="https://blog-img-1259157239.cos.ap-guangzhou.myqcloud.com/js/main.js"></script>
+<script type="text/javascript" src="/js/my.js"></script>
+
+  <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+</body>
+</html>

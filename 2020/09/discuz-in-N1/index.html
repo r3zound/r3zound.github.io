@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog" />
+  <meta name="description" content="Powersee 的个人博客" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  <link rel="dns-prefetch" href="https://at.alicdn.com">
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.css">
+	<link rel="shortcut icon" href="/blog.svg" title="Favicon">
+	<title>在 N1、我家云搭建 discuz 论坛</title>
+  
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Powersee的博客" type="application/atom+xml">
+</head>
+<body>
+  <canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Powersee的博客</a>
+  <a class="face-img" href="/">
+    <!-- <img src="/./img/powersee.jpeg"> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+      <rect width="100%" height="100%" fill="black"></rect>
+      <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">Power</text>
+        <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">_see</text>
+    </svg>
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    在 N1、我家云搭建 discuz 论坛
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2020-09-06T08:44:16.000Z" itemprop="datePublished">2020-09-06</time>
+      </li>
+      <li>
+        
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>为了更好地讲解，如何为 qiandao 这个全自动签到平台，制作签到模板，我打算搭建一个 discuz 论坛来演示。本次使用的设备是 斐讯N1，因为之前把它刷成 Ubuntu 系统，再装上 乘风大佬 制作的导航（详情请看：<a href="/2020/03/n1-armbian-server">打造最具性价比服务器 N1-armbian</a>），所以现在它是一个 lnmp 环境，添加多一个网站也很容易。</p>
+<p>当然，用 <code>我家云</code>、<code>S905电视盒子</code> 也可以，这两个我之前也介绍过怎么在上面安装 armbian 并使用 乘风大佬 制作的导航。</p>
+<p>下面开始具体操作流程</p>
+<h3 id="一、下载网站源码"><a href="#一、下载网站源码" class="headerlink" title="一、下载网站源码"></a>一、下载网站源码</h3><p><a target="_blank" rel="noopener" href="https://gitee.com/3dming/DiscuzL/attach_files">https://gitee.com/3dming/DiscuzL/attach_files</a></p>
+<p>官方的源码放在 gitee 上面，下载需要有账号。为了方便其他人下载，我将最新版的下载后传到网盘中了。网盘：<a target="_blank" rel="noopener" href="http://veger.ys168.com/">http://veger.ys168.com/</a> </p>
+<blockquote>
+<p>在【Web相关】文件夹中</p>
+</blockquote>
+<h3 id="二、上传到设备内"><a href="#二、上传到设备内" class="headerlink" title="二、上传到设备内"></a>二、上传到设备内</h3><p>需要用到的是压缩包中的 upload 文件夹，你可以选择在电脑上解压，然后再传入 N1，可以用 smb 、ftp、scp 等方式传输。</p>
+<p>也可以直接将压缩包先传到 N1 里面。然后使用 unzip 命令解压（建议先建立一个空文件夹，将压缩包放里面），之前再用 mv 命令将 upload 文件夹移动到你想要放的位置。这里顺便改一下文件夹名。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mv upload /opt/wwwroot/discuz</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、修改-nginx-的配置文件"><a href="#三、修改-nginx-的配置文件" class="headerlink" title="三、修改 nginx 的配置文件"></a>三、修改 nginx 的配置文件</h3><p>先进入配置所在的位置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /opt/etc/nginx/vhost</span><br></pre></td></tr></table></figure>
+
+<p>把 h5ai 的配置文件复制一份给 discuz 用，然后手动编辑这份配置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cp h5ai.conf discuz.conf</span><br><span class="line">vim discuz.conf</span><br></pre></td></tr></table></figure>
+
+<p>我将它修改为这样</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">     listen 8188;</span><br><span class="line">     server_name localhost;</span><br><span class="line">     root /opt/wwwroot/discuz/;</span><br><span class="line">     index  index.html  index.php  /_h5ai/public/index.php;</span><br><span class="line">     include /opt/etc/nginx/conf/php-fpm.conf;</span><br><span class="line">    #otherconf</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>主要就是修改第二和第四行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">listen 8188; #端口可以自己设置，但是不能和其它重复</span><br><span class="line">server_name localhost; #有域名的话是在这里设置</span><br><span class="line">root /opt/wwwroot/discuz/; # 网站源码所在的文件夹路径</span><br></pre></td></tr></table></figure>
+
+<p>改好后，让 Nginx 重新读取一下配置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/opt/sbin/nginx -s reload</span><br></pre></td></tr></table></figure>
+
+<h3 id="四、安装"><a href="#四、安装" class="headerlink" title="四、安装"></a>四、安装</h3><p>然后你到浏览器打开 N1 的 IP:8188</p>
+<p>就可以看到 discuz 的安装界面。</p>
+<p><img src="/img/2020/discuz-install.png" alt="discuz-install"></p>
+<p>但是你有可能会碰到提示不可写的情况</p>
+<p><img src="/img/2020/%E4%B8%8D%E5%8F%AF%E5%86%99.png" alt="不可写"></p>
+<p>这时就需要修改权限了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">chmod -R 777 /opt/wwwroot/discuz</span><br></pre></td></tr></table></figure>
+
+<p>然后再刷新一下网页应该就可以了</p>
+<p>接着来到这一步，数据库密码改为 <code>123456</code></p>
+<p><img src="/img/2020/discuz-database.png" alt="discuz-database"></p>
+<p>然后就可以按下一步安装了。</p>
+<p>这样应该就可以顺利使用了。</p>
+<h3 id="五、卸载"><a href="#五、卸载" class="headerlink" title="五、卸载"></a>五、卸载</h3><p>删除 nginx 配置和网站源码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">rm /opt/etc/nginx/vhost/discuz.conf</span><br><span class="line">rm -rf /opt/wwwroot/discuz</span><br></pre></td></tr></table></figure>
+
+<p>删除数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/opt/bin/mysql -uroot -p</span><br><span class="line"># 输入密码 123456</span><br><span class="line">drop database ultrax;</span><br></pre></td></tr></table></figure>
+
+<p>完成。</p>
+
+      </div>
+        <div class="support-author">
+          <p>博客链接:
+          <a href="https://powersee.github.io/" target="_blank">https://powersee.github.io/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+          <p>备份博客:
+          <a href="https://blog.powersee.top/" target="_blank">https://blog.powersee.top/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+
+        </div>
+      </div>
+    </div>
+   </div>
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a target="_blank" rel="noopener" href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a target="_blank" rel="noopener" href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2018-2023 </p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = ''.split(',');
+  var canConsole = 'false';
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+
+}(consoleConfig));
+
+// js 也放到 腾讯云 cos
+</script><script type="text/javascript" src="https://blog-img-1259157239.cos.ap-guangzhou.myqcloud.com/js/main.js"></script>
+<script type="text/javascript" src="/js/my.js"></script>
+
+  <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+</body>
+</html>

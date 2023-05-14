@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog" />
+  <meta name="description" content="Powersee 的个人博客" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  <link rel="dns-prefetch" href="https://at.alicdn.com">
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.css">
+	<link rel="shortcut icon" href="/blog.svg" title="Favicon">
+	<title>关于 s905 盒子数码Q5刷 armbian Ubuntu</title>
+  
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Powersee的博客" type="application/atom+xml">
+</head>
+<body>
+  <canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Powersee的博客</a>
+  <a class="face-img" href="/">
+    <!-- <img src="/./img/powersee.jpeg"> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+      <rect width="100%" height="100%" fill="black"></rect>
+      <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">Power</text>
+        <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">_see</text>
+    </svg>
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    关于 s905 盒子数码Q5刷 armbian Ubuntu
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2020-07-07T13:22:48.000Z" itemprop="datePublished">2020-07-07</time>
+      </li>
+      <li>
+        
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <p>闲鱼上面 s905 的电视盒子有很多，我买的是 北京数码视讯 Q5 ，这款算是比较出名的了，网上搜也可以找到很多帖子。</p>
+<p>我买来时里面就是破解好的安卓系统了，当成一个普通播放器是没什么问题的。如果你是家里本身就有这台设备的，可以网上查一下怎么破解，其实不能算破解吧，应该叫刷机才对。</p>
+<p>比如我这台后面写的是江苏移动，那它应该是江苏那边的用户办理宽带送的，然后如果宽带到期了，这台设备也就没法用了。因为里面的系统是移动定制的。网上有方案可以把它刷成其它系统，做到废物利用。</p>
+<p>虽然我现在可以正常使用里面的安卓系统，不过我好奇的是怎么把它刷成 Linux 系统。研究之后发现挺简单的。</p>
+<hr>
+<p><strong>需要东西</strong>（在网盘 <a target="_blank" rel="noopener" href="http://veger.ys168.com/">http://veger.ys168.com/</a> 的【不仅限于盒子】文件夹中）</p>
+<ol>
+<li>Linux 系统镜像（这里使用 Ubuntu 18.04）</li>
+<li>将 img 镜像写入 U 盘或者 tf 卡的工具——usb burning tool</li>
+<li>从安卓系统重启到 Linux 系统软件—— Reboot to libreELEC</li>
+</ol>
+<p>将三样东西准备好，然后用 usb burning tool 将 img 镜像写入 U 盘或者 tf 卡。写入好后，需要修改 dtb ，我们更改  U 盘或者 tf 卡的 <code>uEnv.ini</code> 文件，将里面的第一行修改为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dtb_name=/dtb/meson-gxbb-p201.dtb</span><br></pre></td></tr></table></figure>
+
+<p>保存文件，将 U 盘或者 tf 卡插入机器，开机。</p>
+<p>如果依然是进入到安卓系统的话，那就安装一个上面提到的 <code>Reboot to libreELEC</code> 这个软件，自己想办法把这个 apk 安装包弄到盒子上面装。</p>
+<p>装好打开这个软件，确认，就可以重启进入 Linux 系统。后面的教程和之前的 N1 教程一模一样的，可以去看之前的文章就行。</p>
+<p><a href="/2020/03/n1-armbian-server/">打造最具性价比服务器 N1-armbian</a></p>
+<p>有一个缺点就是，没法驱动 wifi ，我试过里面好几个 dtb ，都没法，尝试用其它版本的固件，也不行，暂时无解，如果有朋友知道怎么解决欢迎告知我一下，可以用下方的邮箱，或者其它平台的私信、留言都可以，感谢。</p>
+<p>视频发出后，感谢网友 @<a target="_blank" rel="noopener" href="https://space.bilibili.com/53153092">栾__</a> 的回复</p>
+<blockquote>
+<p>wifi可以用544的镜像，后来的都没有驱动</p>
+</blockquote>
+<p>于是我通过搜索找到了这篇帖子</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jzgw/p/S905_8189ETV_8189ES_wifi-config.html">S905/S905X Armbian安装WiFi驱动8189ETV的解决方法</a></p>
+<p>在里面下载了 5.44 的镜像，将 dtb 文件夹里面的 meson-gxbb-p201.dtb 复制到根目录，改名为 dtb.img。</p>
+<p>使用这个镜像不能从 sd 卡启动，只能从 U 盘启动。然后 wifi 我没有成功驱动……</p>
+<h3 id="2022-年-10-月"><a href="#2022-年-10-月" class="headerlink" title="2022 年 10 月"></a>2022 年 10 月</h3><p>时隔两年多，今天收到了网友的邮件，告知我已经解决了 WiFi 驱动的问题，并且还给出了编译网卡驱动的过程，大家感兴趣的可以点击链接去了解一下。</p>
+<p><a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-8257102-1-1.html">https://www.right.com.cn/forum/thread-8257102-1-1.html</a></p>
+
+      </div>
+        <div class="support-author">
+          <p>博客链接:
+          <a href="https://powersee.github.io/" target="_blank">https://powersee.github.io/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+          <p>备份博客:
+          <a href="https://blog.powersee.top/" target="_blank">https://blog.powersee.top/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+
+        </div>
+      </div>
+    </div>
+   </div>
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a target="_blank" rel="noopener" href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a target="_blank" rel="noopener" href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2018-2023 </p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = ''.split(',');
+  var canConsole = 'false';
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+
+}(consoleConfig));
+
+// js 也放到 腾讯云 cos
+</script><script type="text/javascript" src="https://blog-img-1259157239.cos.ap-guangzhou.myqcloud.com/js/main.js"></script>
+<script type="text/javascript" src="/js/my.js"></script>
+
+  <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+</body>
+</html>

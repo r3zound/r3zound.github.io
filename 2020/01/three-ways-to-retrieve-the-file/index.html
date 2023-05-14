@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog" />
+  <meta name="description" content="Powersee 的个人博客" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  <link rel="dns-prefetch" href="https://at.alicdn.com">
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.css">
+	<link rel="shortcut icon" href="/blog.svg" title="Favicon">
+	<title>关于服务器资源取回本地的几种方法</title>
+  
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Powersee的博客" type="application/atom+xml">
+</head>
+<body>
+  <canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Powersee的博客</a>
+  <a class="face-img" href="/">
+    <!-- <img src="/./img/powersee.jpeg"> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+      <rect width="100%" height="100%" fill="black"></rect>
+      <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">Power</text>
+        <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">_see</text>
+    </svg>
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    关于服务器资源取回本地的几种方法
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2020-01-24T03:14:41.000Z" itemprop="datePublished">2020-01-24</time>
+      </li>
+      <li>
+        
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <p>本文介绍三种我自己都有用过的方法，都是比较简单的。</p>
+<h2 id="一、caddy"><a href="#一、caddy" class="headerlink" title="一、caddy"></a>一、caddy</h2><p> 首先，安装一个 caddy。现在是 <code>2020-09-29</code> ，最新的 caddy 版本是 2.2.0，后期如果有更新的话，请自行到官网或者 <a target="_blank" rel="noopener" href="https://github.com/caddyserver/caddy/releases">GitHub</a> 了解。</p>
+<p>这里下载的是一个 deb 包</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget https://github.com/caddyserver/caddy/releases/download/v2.2.0/caddy_2.2.0_linux_amd64.deb</span><br></pre></td></tr></table></figure>
+
+<p>下载完成后，用 dkpg 来安装</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dpkg -i caddy_2.2.0_linux_amd64.deb</span><br></pre></td></tr></table></figure>
+
+<p>此时 caddy 会自动启动，我们先把它关了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl stop caddy</span><br></pre></td></tr></table></figure>
+
+<p>写入配置</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &quot;:80 &#123;  </span><br><span class="line"> root * /path/to/downloads</span><br><span class="line"> file_server browse  </span><br><span class="line">&#125;&quot; &gt; Caddyfile</span><br></pre></td></tr></table></figure>
+
+<p>注意！！！此处的 <code>/path/to/downloads</code> 就是要共享的文件夹路径，可以自行修改。</p>
+<p>启动 caddy</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">caddy start</span><br></pre></td></tr></table></figure>
+
+<p>开放服务器 80 端口</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ufw allow 80</span><br></pre></td></tr></table></figure>
+
+<p>完成后就可以在浏览器里，输入 <code>IP地址</code> 来访问下载好的文件了。如果是 MP4 文件的话，还可以支持在线播放。</p>
+<p>其实不建议用 80 端口，最好还是用其它的吧。如果用其它的端口，在浏览器中访问时，就需要加上 <code>:</code>和 <code>端口号</code>，例如用 <code>9527</code> 端口，此时 <code>IP</code>假设为 <code>111.222.111.111</code> 就需要在浏览器中访问</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">111.222.111.111:9527</span><br></pre></td></tr></table></figure>
+
+<p>需要想要关闭 caddy 服务，可以用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">caddy stop</span><br></pre></td></tr></table></figure>
+
+<p>stop 之后，我们可以使用 <code>vim</code> 或者 <code>nano</code> 编辑 <code>Caddyfile</code>，这两个编辑器的使用可以网上搜一下，我们可以修改端口，文件夹的路径这些内容，保存后再来启动 caddy 就行。</p>
+<p>如果想卸载，用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dpkg -r caddy</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、h5ai"><a href="#二、h5ai" class="headerlink" title="二、h5ai"></a>二、h5ai</h2><blockquote>
+<p>这是一个 PHP 程序，原本它是要求机器本身有 PHP 才能用的，不过现在使用 docker 来安装的话，也可以非常迅速就安装好。</p>
+</blockquote>
+<p>一行命令即可，最简单</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d -p 8055:80 -v /home/tr/download:/h5ai --name h5ai ilemonrain/h5ai:full -d</span><br></pre></td></tr></table></figure>
+
+<p>如果你是用 docker 安装了 transmission ，而且下载路径是 <code>/home/tr/download</code> ，那么你可以直接使用上面的命令。</p>
+<p>如果你使用的是 qb ，你可以自己修改下载路径，例如将路径改为 <code>/path/to/downloads</code> ，改完的完整命令是这个</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d -p 8055:80 -v /path/to/downloads:/h5ai --name h5ai ilemonrain/h5ai:full -d</span><br></pre></td></tr></table></figure>
+
+<p>装好后在浏览器输入 <code>ip:8085</code> 就可以看到里面的内容。</p>
+<p>如果后来觉得不需要了，可以选择停止这个容器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker stop h5ai</span><br></pre></td></tr></table></figure>
+
+<p>停止后觉得以后不会再用到它了，可以选择将它删除</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker rm h5ai</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、Python-web"><a href="#三、Python-web" class="headerlink" title="三、Python web"></a>三、Python web</h2><p>这个是最简单的，基本所有的服务器都可以，而且不用额外安装其它的程序。只需要在 ssh 时进入到指定的文件夹，然后输入这条命令即可。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python -m SimpleHTTPServer</span><br></pre></td></tr></table></figure>
+<p>会默认采用8000端口,此时输入 <strong>IP:8000</strong> 或者 <strong>域名:8000</strong> ，即可访问当前目录下的文件，如果有 **index.html **则会默认加载。</p>
+<p>然后想要停止时，按<code>CTRL + C</code> 取消。<br>不过这种方法有挺多缺点的，比如不支持断点续传，开启时需一直保持 ssh 连接着，显示的文件信息简陋等。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>第三种适合于临时下载的，前两种适合长时间的。如果机器本身有装 docker ，那我建议使用第二种。当然第一种也有好处，就是可以绑定指定的域名。</p>
+<p>各取所需吧，适合自己的需求的才是最好的。</p>
+
+      </div>
+        <div class="support-author">
+          <p>博客链接:
+          <a href="https://powersee.github.io/" target="_blank">https://powersee.github.io/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+          <p>备份博客:
+          <a href="https://blog.powersee.top/" target="_blank">https://blog.powersee.top/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+
+        </div>
+      </div>
+    </div>
+   </div>
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a target="_blank" rel="noopener" href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a target="_blank" rel="noopener" href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2018-2023 </p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = ''.split(',');
+  var canConsole = 'false';
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+
+}(consoleConfig));
+
+// js 也放到 腾讯云 cos
+</script><script type="text/javascript" src="https://blog-img-1259157239.cos.ap-guangzhou.myqcloud.com/js/main.js"></script>
+<script type="text/javascript" src="/js/my.js"></script>
+
+  <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+</body>
+</html>

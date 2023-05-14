@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog" />
+  <meta name="description" content="Powersee 的个人博客" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  <link rel="dns-prefetch" href="https://at.alicdn.com">
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.css">
+	<link rel="shortcut icon" href="/blog.svg" title="Favicon">
+	<title>克隆 WordPress 网站</title>
+  
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Powersee的博客" type="application/atom+xml">
+</head>
+<body>
+  <canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Powersee的博客</a>
+  <a class="face-img" href="/">
+    <!-- <img src="/./img/powersee.jpeg"> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+      <rect width="100%" height="100%" fill="black"></rect>
+      <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">Power</text>
+        <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">_see</text>
+    </svg>
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    克隆 WordPress 网站
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2018-06-11T10:46:29.000Z" itemprop="datePublished">2018-06-11</time>
+      </li>
+      <li>
+        
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <p>我现在的网站是放在美国的一个 vps 里的，之前一直想要怎么备份，万一这台服务器被墙了（毕竟真的发生过），或者将来换服务器了，那我怎么转移。当时找了好多方法。</p>
+<h3 id="一-自带的导出导入"><a href="#一-自带的导出导入" class="headerlink" title="一 自带的导出导入"></a>一 自带的导出导入</h3><p>这是最简单的了，WordPress 本身就有这功能。登录后台，工具，就有导入和导出。把旧的导出，然后在一台新的服务器上导入，这样所有的文章就都过去了。确实方便，然而，只能导出文章，主题、插件是没法的。</p>
+<h3 id="二-All-in-One-WP-Migration"><a href="#二-All-in-One-WP-Migration" class="headerlink" title="二 All-in-One WP Migration"></a>二 All-in-One WP Migration</h3><p>这是一个插件，在添加插件里搜索就能找到。安装后会出现在后台面板的左侧。点导出，会生成一个文件，可以下载。然后在一台新的服务器也安装这个插件，就能导入刚才下载的这个文件，这样就能把整个网站完整的克隆。这样也可以当做备份，不过免费版最多只能备份 500M 的网站，而且只能备份到本地。</p>
+<h3 id="三-UpdraftPlus"><a href="#三-UpdraftPlus" class="headerlink" title="三 UpdraftPlus"></a>三 UpdraftPlus</h3><p>在添加插件里搜索 back 排第一的就是它。支持定时备份，既可以备份在本地，也可以备份在网盘、邮箱、FTP 这些，而且还是免费的。果然厉害，于是我设置它每天备份到 Dropbox ，只保留两份备份，这样就不会一下子就把网盘给塞满了。</p>
+<p><strong>缺点：</strong>不能像上面那个插件那样，克隆网站，它只是支持数据丢失后的恢复。如果要实现网站克隆，需要花钱购买它的专业版。</p>
+<h3 id="四-免费让-UpdraftPlus-支持网站克隆"><a href="#四-免费让-UpdraftPlus-支持网站克隆" class="headerlink" title="四 免费让 UpdraftPlus 支持网站克隆"></a>四 免费让 UpdraftPlus 支持网站克隆</h3><p>这是我无意发现的。那天是在查让 WordPress 绑定多个域名。</p>
+<p>在 WordPress 程序根目录 wp-config.php 文件中加上下面代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">define(&#x27;WP_SITEURL&#x27;, &#x27;http://&#x27; . $_SERVER[&#x27;HTTP_HOST&#x27;]);</span><br><span class="line">define(&#x27;WP_HOME&#x27;, &#x27;http://&#x27; . $_SERVER[&#x27;HTTP_HOST&#x27;]);</span><br></pre></td></tr></table></figure>
+
+<p>这样只要是解析进来的域名都可以打开且不会看到串联到其他域名</p>
+<p>这样修改后再就可以用 UpdraftPlus 来克隆网站了</p>
+<p>我只是想多备份而已，不然这么久的努力忽然消失了，岂不是很心疼。</p>
+
+      </div>
+        <div class="support-author">
+          <p>博客链接:
+          <a href="https://powersee.github.io/" target="_blank">https://powersee.github.io/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+          <p>备份博客:
+          <a href="https://blog.powersee.top/" target="_blank">https://blog.powersee.top/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+
+        </div>
+      </div>
+    </div>
+   </div>
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a target="_blank" rel="noopener" href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a target="_blank" rel="noopener" href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2018-2023 </p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = ''.split(',');
+  var canConsole = 'false';
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+
+}(consoleConfig));
+
+// js 也放到 腾讯云 cos
+</script><script type="text/javascript" src="https://blog-img-1259157239.cos.ap-guangzhou.myqcloud.com/js/main.js"></script>
+<script type="text/javascript" src="/js/my.js"></script>
+
+  <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+</body>
+</html>

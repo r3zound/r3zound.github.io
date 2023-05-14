@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog" />
+  <meta name="description" content="Powersee 的个人博客" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  <link rel="dns-prefetch" href="https://at.alicdn.com">
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.css">
+	<link rel="shortcut icon" href="/blog.svg" title="Favicon">
+	<title>搭建个人网盘——syncthing</title>
+  
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Powersee的博客" type="application/atom+xml">
+</head>
+<body>
+  <canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Powersee的博客</a>
+  <a class="face-img" href="/">
+    <!-- <img src="/./img/powersee.jpeg"> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+      <rect width="100%" height="100%" fill="black"></rect>
+      <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">Power</text>
+        <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">_see</text>
+    </svg>
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    搭建个人网盘——syncthing
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2018-05-29T15:23:19.000Z" itemprop="datePublished">2018-05-29</time>
+      </li>
+      <li>
+        
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <p>syncthing 是一款开源免费的同步工具，而且除了 iOS，其它的平台基本都有客服端可以下载。它的作用是，可以让一个文件夹，在多台设备上保持同步。</p>
+<h3 id="一-下载"><a href="#一-下载" class="headerlink" title="一  下载"></a>一  下载</h3><p>到其官网下载对应的客户端：<a target="_blank" rel="noopener" href="https://syncthing.net/">官网链接</a>  例如我下载Android版和Ubuntu版 Ubuntu版链接：<a target="_blank" rel="noopener" href="https://apt.syncthing.net/">点我</a><br>安卓安装就不用说了，Ubuntu则根据其页面的这段命令输入就行。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\# Add the release PGP keys:</span><br><span class="line">curl -s https://syncthing.net/release-key.txt | sudo apt-key add -</span><br><span class="line"></span><br><span class="line">\# Add the &quot;stable&quot; channel to your APT sources:</span><br><span class="line">echo &quot;deb https://apt.syncthing.net/ syncthing stable&quot; | sudo tee /etc/apt/sources.list.d/syncthing.list</span><br><span class="line"></span><br><span class="line">\# Update and install syncthing:</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install syncthing</span><br></pre></td></tr></table></figure>
+<h3 id="二-运行"><a href="#二-运行" class="headerlink" title="二  运行"></a>二  运行</h3><p>此时在Ubuntu终端输入命令：<code>syncthing</code> 来运行它 等待看到<br><code>GUI and API listening on 127.0.0.1:8384</code><br>同时按<code>ctrl 和 C</code> 来取消命令 运行此命令的目的时为了生成配文件</p>
+<h3 id="三-修改"><a href="#三-修改" class="headerlink" title="三  修改"></a>三  修改</h3><p>此时我们即可修改配文件<br><code>vim ~/.config/syncthing/config.xml</code><br>然后找到 <code>127.0.0.1:8384</code> 将之改为 <code>0.0.0.0:8384</code><br>更改方法为找到此处 按键盘的 <code>i</code> 便可以修改，改完按 <code>Esc</code> 退出编辑状态，输入 <code>:wq</code> (保存并退出的意思)</p>
+<h3 id="四-配置"><a href="#四-配置" class="headerlink" title="四  配置"></a>四  配置</h3><p>这时就可以输入<code>IP:8384</code> (例如 <code>192.168.123.184:8384</code> )进入管理页面了 我们可以设置账号密码，以免随便他人登录这个界面 点击右上角的 操作 显示ID 将会出现一张二维码，用手机扫描这即可添加关联 然后设置想要同步的文件夹，当两个客户端都运行时就会自动同步</p>
+<p>完</p>
+
+      </div>
+        <div class="support-author">
+          <p>博客链接:
+          <a href="https://powersee.github.io/" target="_blank">https://powersee.github.io/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+          <p>备份博客:
+          <a href="https://blog.powersee.top/" target="_blank">https://blog.powersee.top/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+
+        </div>
+      </div>
+    </div>
+   </div>
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a target="_blank" rel="noopener" href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a target="_blank" rel="noopener" href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2018-2023 </p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = ''.split(',');
+  var canConsole = 'false';
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+
+}(consoleConfig));
+
+// js 也放到 腾讯云 cos
+</script><script type="text/javascript" src="https://blog-img-1259157239.cos.ap-guangzhou.myqcloud.com/js/main.js"></script>
+<script type="text/javascript" src="/js/my.js"></script>
+
+  <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+</body>
+</html>

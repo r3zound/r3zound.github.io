@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog" />
+  <meta name="description" content="Powersee 的个人博客" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  <link rel="dns-prefetch" href="https://at.alicdn.com">
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.css">
+	<link rel="shortcut icon" href="/blog.svg" title="Favicon">
+	<title>沦为废铁的玩客云还能拿来干什么？</title>
+  
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Powersee的博客" type="application/atom+xml">
+</head>
+<body>
+  <canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Powersee的博客</a>
+  <a class="face-img" href="/">
+    <!-- <img src="/./img/powersee.jpeg"> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+      <rect width="100%" height="100%" fill="black"></rect>
+      <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">Power</text>
+        <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">_see</text>
+    </svg>
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    沦为废铁的玩客云还能拿来干什么？
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2020-11-20T11:31:53.000Z" itemprop="datePublished">2020-11-20</time>
+      </li>
+      <li>
+        
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <h2 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h2><p>玩客云原本的系统是 Android ，想要刷成 Linux 需要使用双公头 USB 线连接电脑，进行线刷。</p>
+<p>而且似乎还不是直接连接就能刷，需要拆机，短接主板上的两个点。</p>
+<p><img src="/img/2020/%E7%8E%A9%E5%AE%A2%E4%BA%91%E7%9F%AD%E6%8E%A5.jpg" alt="玩客云短接"></p>
+<p>我的刷机步骤是先连接双公头 USB 线，然后用镊子按住主板上的两个短接点，电脑打开 USB Burning Tool ，然后玩客云通电。</p>
+<p><img src="/img/2020/%E7%8E%A9%E5%AE%A2%E4%BA%91%E5%88%B7%E6%9C%BA%E6%A8%A1%E5%BC%8F.jpg" alt="玩客云刷机模式"></p>
+<p>虽然网上也能找到可以直接线刷的 armbian 固件，不过我个人还是喜欢先线刷 s805_flash_snail.img 这个镜像。刷入这个之后，玩客云便可以从 U 盘启动系统，因此只要你有多个 U 盘，便可以拥有多个系统。更多的系统镜像可以到 <a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/forum-175-1.html">恩山</a> 上找。</p>
+<p>我目前使用的固件是 <a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-4057492-1-1.html">Armbian 20.10 Buster with Linux 5.9.0-rc7 hdmi docker可用</a> ，先用 U 盘运行，没什么问题之后，再执行 <code>/boot/install/install.sh</code> 将固件写入 emmc 。</p>
+<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>既然刷入了 armbian 了，那它可以和 N1 一样来使用吗？并不能，因为玩客云的 cpu 是 32 位的 ，能用的 docker 镜像相比于 N1 这种 64 位的，会少很多。</p>
+<p>在 docker hub 上面搜镜像时，可以注意一下那些有标 arm 的才可以用。</p>
+<p>玩客云安装 docker 也比较简单，可以直接在终端中输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">armbian-config</span><br></pre></td></tr></table></figure>
+
+<p>来安装 docker 、samba、transmission 等应用。</p>
+<p>不过有时候好像会装不了，可以试一下用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt install docker.io</span><br></pre></td></tr></table></figure>
+
+<p>想知道有没有安装成功，可以用这个命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
+
+<p>我在玩客云上面尝试了这些 docker 镜像。</p>
+<h3 id="1、博客——typecho"><a href="#1、博客——typecho" class="headerlink" title="1、博客——typecho"></a>1、博客——typecho</h3><p>typecho 是一款国产的 php 博客系统，开源免费，占用资源少，我个人挺喜欢的。不过之前灯大制作的 typecho 镜像不能用在玩客云上，我重新找了一个。</p>
+<p>建议自己建立一个文件夹，用来存放 typecho 的相关文件，方便管理以及以后迁移。我建立在 &#x2F;root&#x2F;tyepcho</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir /root/tyepcho</span><br></pre></td></tr></table></figure>
+
+<p>然后便可以建立容器了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d -p 80:80 --name typecho -v &quot;/root/tyepcho&quot;:/var/www/html yangxuan8282/typecho:php-arm</span><br></pre></td></tr></table></figure>
+
+<p>此时便可以通过 ip 访问在玩客云里面建立好的博客。</p>
+<h3 id="2、aria2"><a href="#2、aria2" class="headerlink" title="2、aria2"></a>2、aria2</h3><p>这是一个多线程的下载器，也是开源免费的，我们可以使用它来下载一些东西。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">    --name aria2-pro \</span><br><span class="line">    --restart unless-stopped \</span><br><span class="line">    --log-opt max-size=1m \</span><br><span class="line">    --network host \</span><br><span class="line">    -e PUID=$UID \</span><br><span class="line">    -e PGID=$GID \</span><br><span class="line">    -e RPC_SECRET=12345 \</span><br><span class="line">    -e RPC_PORT=6800 \</span><br><span class="line">    -e LISTEN_PORT=6888 \</span><br><span class="line">    -v ~/aria2-config:/config \</span><br><span class="line">    -v /home/powersee:/downloads \</span><br><span class="line">    p3terx/aria2-pro</span><br></pre></td></tr></table></figure>
+
+<p>我将下载的文件存放在 <code>/home/powersee</code> 中，之后只需要将这个文件夹通过 smb 共享出来，便可以在电脑、手机上面访问里面的内容了。</p>
+<p>此时 aria2 已经在运行了，但是默认情况下，只能使用命令行的方式控制它，这种比较麻烦了。大多数人还是使用网页的来控制的。使用人数比较多是 AriaNg<strong>（如果有打算装浏览器插件的，这部分可以不看）</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/mayswind/AriaNg">https://github.com/mayswind/AriaNg</a></p>
+<p>官方有提供 demo</p>
+<p><a target="_blank" rel="noopener" href="http://ariang.mayswind.net/latest">http://ariang.mayswind.net/latest</a></p>
+<p>访问后添加自己的 aria2 rpc 即可控制 aria2 。其实这个控制面板就是一个 html 网页，可以自己把它下载到电脑上，双击打开就可以。在 GitHub 的 release 中可以下载，同时我也把它上传到网盘里面，方便无法从 GitHub 下载的朋友。（在【不仅限于盒子】——【玩客云】）里面。</p>
+<p><strong>浏览器插件</strong></p>
+<p>Aria2 还可以接管浏览器的下载，例如下载网盘的内容，这个以前百度网盘还可以轻松突破限速的时候，Aria2 经常被用在这方面。</p>
+<p>用 chrome 的可以到商店下载 Aria2 for chrome 这个扩展插件。</p>
+<p>用新版 Edge 的，可以到商店下载 Aria2 for edge</p>
+<p><a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/aria2-for-edge/jjfgljkjddpcpfapejfkelkbjbehagbh?hl=zh-CN">https://microsoftedge.microsoft.com/addons/detail/aria2-for-edge/jjfgljkjddpcpfapejfkelkbjbehagbh?hl=zh-CN</a></p>
+<p>使用这个插件，可以让平时用浏览器下载的文件，发送到 aria2 下载，很 idm 很像，都是多线程下载工具，很多时候可以让下载速度快一些。</p>
+<p>但是 idm 只能在 windows 上面使用，而 aira2 大多数平台都可以安装，这样有一个好处，就是假如我的 aria2 是安装在 LInux 服务器上的，例如 N1 、我家云、贝壳云、玩客云 这样的设备上面，那么当我下载速度非常慢的资源，例如没有开会员的百度网盘文件，或者城通网盘文件。我可以将下载发送到 Linux 服务器后，电脑就可以关机了，让任务在 Linux 服务器上面慢慢下载就行。</p>
+<h3 id="3、verysync"><a href="#3、verysync" class="headerlink" title="3、verysync"></a>3、verysync</h3><p>这是一个同步工具，这里使用 docker 来安装</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">back_path=/mnt/verysync</span><br><span class="line">docker run -d \</span><br><span class="line">--restart=unless-stopped \</span><br><span class="line">--name verysync \</span><br><span class="line">-v $back_path:/data \</span><br><span class="line">-p 8886:8886 \</span><br><span class="line">unwenliu/verysync:armv7</span><br></pre></td></tr></table></figure>
+
+<p>请将里面的 <code>/mnt/verysync</code> 修改为你自己的</p>
+<h3 id="4、transmission"><a href="#4、transmission" class="headerlink" title="4、transmission"></a>4、transmission</h3><p>这是一个轻量级的 BT 下载工具，有些路由器里面也有内置它，可见其轻量</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run \</span><br><span class="line">    -d \</span><br><span class="line">    --name transmission \</span><br><span class="line">    -p 9091:9091 \</span><br><span class="line">    -p 51413:51413 \</span><br><span class="line">    -v /mnt/tr_data:/data \</span><br><span class="line">    -e USERNAME=admin \</span><br><span class="line">    -e PASSWORD=admin \</span><br><span class="line">    gists/transmission</span><br></pre></td></tr></table></figure>
+
+<p>这里我装了 3.0 版，如果想装 2.94 ，可以将最后一行后面添加标签 <code>:2.94</code> ，变成</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run \</span><br><span class="line">    -d \</span><br><span class="line">    --name transmission \</span><br><span class="line">    -p 9091:9091 \</span><br><span class="line">    -p 51413:51413 \</span><br><span class="line">    -v /mnt/tr_data:/data \</span><br><span class="line">    -e USERNAME=admin \</span><br><span class="line">    -e PASSWORD=admin \</span><br><span class="line">    gists/transmission:2.94</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、qbittorrent"><a href="#5、qbittorrent" class="headerlink" title="5、qbittorrent"></a>5、qbittorrent</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">  --name=qbittorrent \</span><br><span class="line">  -e PUID=1000 \</span><br><span class="line">  -e PGID=1000 \</span><br><span class="line">  -e TZ=Aisa/Shanghai \</span><br><span class="line">  -e WEBUI_PORT=8080 \</span><br><span class="line">  --network host \</span><br><span class="line">  -v /opt/docker/qb/config:/config \</span><br><span class="line">  -v /mnt/qb_downloads:/downloads \</span><br><span class="line">  --restart unless-stopped \</span><br><span class="line">  ghcr.io/linuxserver/qbittorrent</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>后来我还在上面安装了 nginx 和 php ，可以搭建一些简单的网站。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt install nginx php-fpm</span><br></pre></td></tr></table></figure>
+
+<p>想让 nginx 可以解析 php 网页，需要修改 <code>/etc/nginx/sites-enabled/default</code> 这个配置文件。</p>
+<p>默认情况下，nignx 的站点文件位置在 <code>/var/www/html/</code></p>
+
+      </div>
+        <div class="support-author">
+          <p>博客链接:
+          <a href="https://powersee.github.io/" target="_blank">https://powersee.github.io/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+          <p>备份博客:
+          <a href="https://blog.powersee.top/" target="_blank">https://blog.powersee.top/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+
+        </div>
+      </div>
+    </div>
+   </div>
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a target="_blank" rel="noopener" href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a target="_blank" rel="noopener" href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2018-2023 </p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = ''.split(',');
+  var canConsole = 'false';
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+
+}(consoleConfig));
+
+// js 也放到 腾讯云 cos
+</script><script type="text/javascript" src="https://blog-img-1259157239.cos.ap-guangzhou.myqcloud.com/js/main.js"></script>
+<script type="text/javascript" src="/js/my.js"></script>
+
+  <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+</body>
+</html>

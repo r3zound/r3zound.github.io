@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog" />
+  <meta name="description" content="Powersee 的个人博客" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  <link rel="dns-prefetch" href="https://at.alicdn.com">
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.css">
+	<link rel="shortcut icon" href="/blog.svg" title="Favicon">
+	<title>在 Linux 上挂载 NFS</title>
+  
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Powersee的博客" type="application/atom+xml">
+</head>
+<body>
+  <canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Powersee的博客</a>
+  <a class="face-img" href="/">
+    <!-- <img src="/./img/powersee.jpeg"> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+      <rect width="100%" height="100%" fill="black"></rect>
+      <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">Power</text>
+        <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">_see</text>
+    </svg>
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    在 Linux 上挂载 NFS
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2020-10-01T02:22:03.000Z" itemprop="datePublished">2020-10-01</time>
+      </li>
+      <li>
+        
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>NFS 是 Network File System 的缩写。和 smb 相似，可以将服务器中的某个文件夹共享出来，让其它设备可以访问里面的内容。</p>
+<p>我们知道 smb 共享可以挂载在 Windows 电脑上，当一块网络硬盘来使用。</p>
+<p><img src="/img/2020/smb-mount.png" alt="smb-mount"></p>
+<p>NFS 也同样可以，于是我想把 贝壳云 上面连接的 10T 硬盘，通过 NFS 共享，挂载在刷了 armbian 的 N1 上面，这样我两台设备都可以使用这块硬盘，提高利用效率。</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>贝壳云上我刷的是小钢炮系统，里面可以直接开启 NFS ，需要先设置共享。</p>
+<ul>
+<li>export dir 想要共享的目录</li>
+<li>hosts allow 允许访问的 IP 地址，这里我填 N1 的 IP 地址</li>
+<li>nfs option 使用默认 <code>rw,sync,root_squash,all_squash,insecure,no_subtree_check</code></li>
+</ul>
+<p>nfs 和 smb 不同，不能设置用账号密码访问，只能设置让某个 IP 访问。如果想让局域网的所有人都可以访问，假设路由器的 IP 是 <code>192.168.1.1</code>，那么这里可以填 <code>192.168.1.0/24</code>，指的是 IP 地址以 <code>192.168.1</code> 开头的用户都可以访问。</p>
+<p>设置好后，切换的 armbian ，用 ssh 连接设备，查看一下 贝壳云 nfs 的共享权限</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">showmount -e beikeyun</span><br></pre></td></tr></table></figure>
+
+<p>这里的 <code>beikeyun</code> 也可以使用内网 IP</p>
+<p>确定 N1 拥有访问权限之后，便可以开始挂载了。此时我想把 贝壳云 上的 <code>/media/x</code> 挂载到 N1 的 <code>/media/x</code> 上，我需要先在 N1 上创建这个文件夹</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir /media/x</span><br></pre></td></tr></table></figure>
+
+<p>之后在 N1 上安装 nfs 客户端</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install nfs-common</span><br></pre></td></tr></table></figure>
+
+<p>之后挂载</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mount -t nfs beikeyun:/media/x /media/x</span><br></pre></td></tr></table></figure>
+
+<p>没有报错便是挂载成功。此时已经可以查看 10T 硬盘里面的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls /media/x</span><br></pre></td></tr></table></figure>
+
+<p>完</p>
+
+      </div>
+        <div class="support-author">
+          <p>博客链接:
+          <a href="https://powersee.github.io/" target="_blank">https://powersee.github.io/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+          <p>备份博客:
+          <a href="https://blog.powersee.top/" target="_blank">https://blog.powersee.top/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+
+        </div>
+      </div>
+    </div>
+   </div>
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a target="_blank" rel="noopener" href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a target="_blank" rel="noopener" href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2018-2023 </p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = ''.split(',');
+  var canConsole = 'false';
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+
+}(consoleConfig));
+
+// js 也放到 腾讯云 cos
+</script><script type="text/javascript" src="https://blog-img-1259157239.cos.ap-guangzhou.myqcloud.com/js/main.js"></script>
+<script type="text/javascript" src="/js/my.js"></script>
+
+  <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+</body>
+</html>
