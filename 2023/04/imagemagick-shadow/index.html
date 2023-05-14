@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog" />
+  <meta name="description" content="Powersee 的个人博客" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  <link rel="dns-prefetch" href="https://at.alicdn.com">
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.css">
+	<link rel="shortcut icon" href="/blog.svg" title="Favicon">
+	<title>使用 imagemagick 给图片添加阴影</title>
+  
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Powersee的博客" type="application/atom+xml">
+</head>
+<body>
+  <canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Powersee的博客</a>
+  <a class="face-img" href="/">
+    <!-- <img src="/./img/powersee.jpeg"> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+      <rect width="100%" height="100%" fill="black"></rect>
+      <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">Power</text>
+        <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">_see</text>
+    </svg>
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    使用 imagemagick 给图片添加阴影
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2023-04-17T16:09:42.000Z" itemprop="datePublished">2023-04-18</time>
+      </li>
+      <li>
+        
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <p>官方文档：<a target="_blank" rel="noopener" href="https://legacy.imagemagick.org/Usage/blur/#shadow">Bluring and Sharpening – IM v6 Examples (imagemagick.org)</a></p>
+<p>我有一张图片，名为 <code>test.jpg</code> 直接放到博客文章里面，效果是这样的</p>
+<p><img src="/img/2023/shadow-test.jpg" alt="shadow-test"></p>
+<p>如果加上阴影后，效果是这样的。</p>
+<p><img src="/img/2023/convert-add-shadow.png" alt="convert-add-shadow"></p>
+<p>看起来效果会好很多，特别是当网页背景是白色，图片背景也是白色时，加了阴影可以让图片更为突出。我使用的是这样一条命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">convert test.jpg \( +clone -background black -shadow 50x20+0+0 \) +swap -background none -layers merge +repage shadow.png</span><br></pre></td></tr></table></figure>
+
+<p><code>-shadow</code> 后面的 <code>50x20+0+0</code> 指的是：</p>
+<p>50：阴影的不透明度</p>
+<p>20：阴影模糊度</p>
+<p>第一个 +0：代表阴影左右偏移</p>
+<p>第二个 +0：代表阴影上下偏移</p>
+<p>假如我改为 <code>50x20+10+10</code>，那么得到的图片是这样的</p>
+<p><img src="/img/2023/shadow-add10-add10.png" alt="shadow-add10-add10"></p>
+<p>也就是阴影会往右下方偏移。</p>
+<p>现在 <code>-background</code> 用的是 black，也可以改为其它颜色的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">convert shadow-test.jpg \( +clone -background red -shadow 50x20+10+10 \) +swap -background none -layers merge +repage shadow.png</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/2023/shadow-red.webp" alt="shadow-red"></p>
+<p>个人感觉用 grey 会比较合适，而且我不喜欢偏移，所以这是我使用的命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">convert shadow-test.jpg \( +clone -background grey -shadow 70x20+0+0 \) +swap -background none -layers merge +repage shadow.png</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/2023/shadow-grey-70.png" alt="shadow-grey-70"></p>
+<p>在 Mac 上用 zsh 必须得加 \ 转义才行，在 Windows 上面就可以不用。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">convert shadow-test.jpg ( +clone -background grey -shadow 70x20+0+0 ) +swap -background none -layers merge +repage shadow.png</span><br></pre></td></tr></table></figure>
+
+<p>我可以把它封装为一个函数，但是输出名字要怎么设置呢？直接在后面加 <code>.png</code> 吗？</p>
+<p>也就是 <code>test.jpg</code> 变 <code>test.jpg.png</code>，这样一般是没问题，不过这样的命名不太好。</p>
+<p>另一种思路，在名字后面加 <code>-shadow</code>，也就是变 <code>test-shadow.png</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">shadow</span></span>() &#123;</span><br><span class="line">		convert <span class="variable">$1</span><span class="string">&quot; /( +clone -background grey -shadow 70x20+0+0 /) +swap -background none -layers merge +repage &quot;</span><span class="variable">$&#123;1%.*&#125;</span><span class="string">&quot;-shadow.png</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>此时将它封装为一个函数，那么之后如果要给图片加阴影，我可以这样来使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">shadow powersee-test.jpg</span><br></pre></td></tr></table></figure>
+
+<p>就可以得到一张名为 <code>powersee-test-shadow.png</code> 的带阴影图片。</p>
+
+      </div>
+        <div class="support-author">
+          <p>博客链接:
+          <a href="https://powersee.github.io/" target="_blank">https://powersee.github.io/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+          <p>备份博客:
+          <a href="https://blog.powersee.top/" target="_blank">https://blog.powersee.top/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+
+        </div>
+      </div>
+    </div>
+   </div>
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a target="_blank" rel="noopener" href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a target="_blank" rel="noopener" href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2018-2023 </p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = ''.split(',');
+  var canConsole = 'false';
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+
+}(consoleConfig));
+
+// js 也放到 腾讯云 cos
+</script><script type="text/javascript" src="https://blog-img-1259157239.cos.ap-guangzhou.myqcloud.com/js/main.js"></script>
+<script type="text/javascript" src="/js/my.js"></script>
+
+  <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+</body>
+</html>

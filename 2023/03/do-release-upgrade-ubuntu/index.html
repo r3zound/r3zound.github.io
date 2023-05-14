@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog" />
+  <meta name="description" content="Powersee 的个人博客" />
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  <link rel="dns-prefetch" href="https://at.alicdn.com">
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.css">
+	<link rel="shortcut icon" href="/blog.svg" title="Favicon">
+	<title>通过 do-release-upgrade 升级 Ubuntu 版本</title>
+  
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Powersee的博客" type="application/atom+xml">
+</head>
+<body>
+  <canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Powersee的博客</a>
+  <a class="face-img" href="/">
+    <!-- <img src="/./img/powersee.jpeg"> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+      <rect width="100%" height="100%" fill="black"></rect>
+      <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">Power</text>
+        <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="48" font-family="sans-serif">_see</text>
+    </svg>
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    通过 do-release-upgrade 升级 Ubuntu 版本
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2023-03-20T16:19:46.000Z" itemprop="datePublished">2023-03-21</time>
+      </li>
+      <li>
+        
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <p>最近给我的两台服务器，都升级了 Ubuntu 版本。个人感觉，如果服务器里的东西不多，还不如备份之后，重装系统，直接装个 22.04 可能会比一步一步升级快。</p>
+<p>我目前有一台服务器用的是 Ubuntu 18.04 LTS，平时装应用有这样那样的问题，我打算给它升级一下。</p>
+<p>平时 ssh 登录上之后，也经常能看到提示升级。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">do-release-upgrade</span><br></pre></td></tr></table></figure>
+
+<p>执行这个命令，就可以升级 Ubuntu 的版本。不过在此之前，我们需要先 update 和 upgrade。当我这些做完之后，却发现，执行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">do-release-upgrade</span><br></pre></td></tr></table></figure>
+
+<p>后提示这个</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Please install all available updates for your release before upgrading</span><br></pre></td></tr></table></figure>
+
+<p>可是我明明已经没东西可以再更新了……</p>
+<p>网上搜索后，别人说试试这个</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt upgrade</span><br><span class="line">sudo apt dist-upgrade</span><br><span class="line">sudo do-release-upgrade</span><br></pre></td></tr></table></figure>
+
+<p>结果试了也没用，最终发现，问题出现在第三方软件源上面。</p>
+<p>因为之前直接用 apt 安装 nodejs，这样安装的是旧版本的。我现在运行的应用要求使用 node18。</p>
+<p>所以之前根据教程，下载了这个脚本，执行后，会添加 node 的软件源。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh</span><br></pre></td></tr></table></figure>
+
+<p>它就在 <code>/etc/apt/sources.list.d</code> 里面，执行下面的命令可以禁用第三方源</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/apt/sources.list.d </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *.list; <span class="keyword">do</span> <span class="built_in">mv</span> <span class="variable">$&#123;i&#125;</span> <span class="variable">$&#123;i&#125;</span>.disabled; <span class="keyword">done</span> </span><br><span class="line">apt clean</span><br><span class="line">apt autoclean </span><br><span class="line">sudo do-release-upgrade </span><br></pre></td></tr></table></figure>
+
+<p>不过我不是这么做的，我直接把里面的 node 源给删了，剩下的 docker 源没动它。之后再执行 <code>do-release-upgrade</code> 就可以继续进行了。</p>
+<p>升级的过程中，有很多选项，还是挺麻烦的。不过好在最后升级成功了，从 18.04 升级到了 20.04.6。</p>
+
+      </div>
+        <div class="support-author">
+          <p>博客链接:
+          <a href="https://powersee.github.io/" target="_blank">https://powersee.github.io/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+          <p>备份博客:
+          <a href="https://blog.powersee.top/" target="_blank">https://blog.powersee.top/</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+
+        </div>
+      </div>
+    </div>
+   </div>
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a target="_blank" rel="noopener" href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a target="_blank" rel="noopener" href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2018-2023 </p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = ''.split(',');
+  var canConsole = 'false';
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+
+}(consoleConfig));
+
+// js 也放到 腾讯云 cos
+</script><script type="text/javascript" src="https://blog-img-1259157239.cos.ap-guangzhou.myqcloud.com/js/main.js"></script>
+<script type="text/javascript" src="/js/my.js"></script>
+
+  <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+</body>
+</html>
