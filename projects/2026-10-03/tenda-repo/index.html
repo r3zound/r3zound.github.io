@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="r3zound 的项目站, r3zound, GitHub, 开源项目">
+  <meta name="description" content="只存构建产物、不存代码的自建 apk 源。由固件的 CI 每周一自动推送。解决的问题很具体：kmod 的 vermagic 绑死内核版本。">
+  <link rel="stylesheet" type="text/css" href="/style/main.css">
+  <link rel="stylesheet" type="text/css" href="/assets/site.css">
+  <link rel="shortcut icon" href="/images/favicon.ico" title="Favicon">
+  <title>Tenda BE12 Pro 自建 apk 源 — r3zound 的项目站</title>
+</head>
+<body>
+<canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">r3zound 的项目站</a>
+  <a class="face-img" href="/">
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+        <rect width="100%" height="100%" fill="black"></rect>
+        <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white" font-size="44" font-family="sans-serif">r3zound</text>
+        <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white" font-size="44" font-family="sans-serif">.dev</text>
+      </svg>
+  </a>
+</div>
+<main>
+  <div class="article-title">
+  <h1 class="title">
+    Tenda BE12 Pro 自建 apk 源
+  </h1>
+    <ul class="article-info">
+      <li>
+        <time datetime="2026-10-03T00:00:00.000Z" itemprop="datePublished">2026-10-03</time>
+      </li>
+      <li><span class="badge">可直接打开</span></li>
+
+      <li><a href="https://github.com/r3zound/tenda-repo" target="_blank" rel="noopener">GitHub 源码</a></li>
+      <li><a href="/">返回索引</a></li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        <p class="p-lead">只存构建产物、不存代码的自建 apk 源。由固件的 CI 每周一自动推送。解决的问题很具体：kmod 的 vermagic 绑死内核版本。</p>
+
+        <h2 id="要点">要点</h2>
+        <ul class="p-highlights">
+          <li>固件走 SNAPSHOT 内核号天天变，外部源的 kmod 全是按上一版内核编的，装上必挂。</li>
+          <li>实测踩坑：外部源给的是 kmod-nft-tproxy-6.18.52-r1，固件已经是 6.18.54。而 kmod-nft-tproxy 是透明代理的命门，缺了它 PassWall / OpenClash / HomeProxy / Nikki-RS 的透明代理模式全起不来。</li>
+          <li>解决办法：每个 .apk 都和固件在同一次 CI、同一个 build root 里产出，ABI 天然 100% 匹配。</li>
+          <li>按分支分两套索引：/main/（OpenWrt SNAPSHOT 内核 6.18 滚动）与 /immortalwrt-25.12/（内核 6.12 稳定），包同名但基线不同，不能混用。</li>
+        </ul>
+
+    <div class="embed-box">
+      <div class="embed-head">
+        <span class="embed-title">tenda-repo — 自建 apk 源</span>
+        <a class="embed-open" href="https://r3zound.github.io/tenda-repo/" target="_blank" rel="noopener">新窗口打开 ↗</a>
+      </div>
+      <iframe src="https://r3zound.github.io/tenda-repo/" height="560" loading="lazy"
+              title="tenda-repo — 自建 apk 源"></iframe>
+      <p class="embed-tip">内容来自该项目的 GitHub Pages，随源仓库自动更新</p>
+    </div>
+        <p class="p-links">
+          <a class="btn-repo" href="https://github.com/r3zound/tenda-repo" target="_blank" rel="noopener">查看完整源码与文档 →</a>
+        </p>
+      </div>
+      <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+    </div>
+  </div>
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+      <a target="_blank" rel="noopener" href="https://github.com/r3zound">r3zound</a>
+      &middot;
+      <a href="/">项目索引</a>
+      &middot;
+      <a href="/third-party/">第三方合集</a>
+    </p>
+    <p>&copy;2018-2026 r3zound &middot; 视觉外壳基于 hexo-themes-yearn</p>
+  </div>
+</div>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/my.js"></script>
+<script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+</body>
+</html>
