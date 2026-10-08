@@ -51,86 +51,89 @@
             <use xlink:href="#icon-menu"></use>
           </svg>
           <ul class="left">
-            <li><a href="/" class="active">首页</a></li>
-            <li><a href="/third-party/" class="">第三方合集</a></li>
+            <li><a href="/" class="active">所有项目</a></li>
+            <li><a href="/#own" class="">自建项目</a></li>
+            <li><a href="/third-party/" class="">复刻项目</a></li>
           </ul>
         </div>
     </div>
     <div class="right-main">
         <div class="clear"></div>
-        <div class="list">
+    <div class="filter-bar" data-scope="own">
+      <div class="filter-row">
+        <input type="search" class="fsearch" id="fsearch-own"
+               placeholder="输入关键词筛选（仓库名 / 简介 / 分类）" autocomplete="off"
+               aria-label="按关键词筛选">
+        <span class="fcount" id="fcount-own"></span>
+      </div>
+      <div class="filter-chips">
+        <button type="button" class="fchip active" data-tag="">全部</button>
+          <button type="button" class="fchip" data-tag="实用工具">实用工具</button>
+          <button type="button" class="fchip" data-tag="小游戏">小游戏</button>
+          <button type="button" class="fchip" data-tag="工具">工具</button>
+          <button type="button" class="fchip" data-tag="智能家居">智能家居</button>
+          <button type="button" class="fchip" data-tag="硬件改造">硬件改造</button>
+          <button type="button" class="fchip" data-tag="路由器固件">路由器固件</button>
+      </div>
+    </div>    <div class="anchor-entry" id="jump-replicas"><a href="/third-party/">查看复刻项目（第三方开源项目合集）→</a></div>
+        <div class="list" id="own">
       <div class="item site-intro">
       <div class="title"><span>关于这个站</span></div>
       <div class="info"><ul><li>自研项目 10 个 &middot; 第三方复刻项目若干 &middot; 持续更新</li></ul></div>
       </div>
-      <div class="item">
+      <div class="item filterable" data-tag="路由器固件" data-date="2026-10-03" data-hay="tenda be12 pro 自建 apk 源 只存构建产物、不存代码的自建 apk 源。由固件的 ci 每周一自动推送。解决的问题很具体：kmod 的 vermagic 绑死内核版本。 路由器固件 tenda-repo ">
       <div class="title">
-        <a href="/projects/2023-11-25/openwrt-firmware/">OpenWrt 云编译仓库（构建模板）</a>
-      </div>
-      <div class="info">
-        <ul>
-          <li><span class="tag">工具</span></li>
-          <li>2023-11-25</li>
-        </ul>
-        <p class="item-summary">GitHub Actions 云编译 OpenWrt 固件的模板仓库。把 .config 推进仓库，在 Actions 页面点一下就能出固件，不用自备编译机。</p>
-        <p class="item-note">说明：这个仓库本质是构建模板，代码主体来自 P3TERX 的开源模板，我这边做的是机型适配与流程调整，故放在自研区但标注清楚出处。</p>
-        <p class="item-links"><a href="https://github.com/r3zound/openwrt-firmware" target="_blank" rel="noopener">GitHub 源码 →</a></p>
-      </div>
-    </div>
-      <div class="item">
-      <div class="title">
-        <a href="/projects/2025-05-13/hass-addons/">Home Assistant 加载项库</a>
-      </div>
-      <div class="info">
-        <ul>
-          <li><span class="tag">智能家居</span></li>
-          <li>2025-05-13</li>
-        </ul>
-        <p class="item-summary">自用的 Home Assistant 加载项集合。以 Docker 静态镜像为主，把自己常用的插件收进来，并按国内网络环境做镜像加速。</p>
-        <p class="item-links"><a href="https://github.com/r3zound/hass-addons" target="_blank" rel="noopener">GitHub 源码 →</a></p>
-      </div>
-    </div>
-      <div class="item">
-      <div class="title">
-        <a href="/projects/2026-04-25/tank-battle/">坦克大战 Tank Battle <span class="badge badge-embed">可直接打开</span></a>
-      </div>
-      <div class="info">
-        <ul>
-          <li><span class="tag">小游戏</span></li>
-          <li>2026-04-25</li>
-        </ul>
-        <p class="item-summary">HTML5 Canvas 写的单文件坦克大战。整局游戏压在一个 12.7KB 的 index.html 里，没有任何外部依赖，双击就能玩。</p>
-        <p class="item-links"><a href="https://github.com/r3zound/tank-battle" target="_blank" rel="noopener">GitHub 源码 →</a></p>
-      </div>
-    </div>
-      <div class="item">
-      <div class="title">
-        <a href="/projects/2026-09-03/immortalwrt-ath79/">EdgeLink EL-953 ImmortalWrt 自包含编译（21.02） <span class="badge badge-archived">已归档</span></a>
+        <a href="/projects/2026-10-03/tenda-repo/">Tenda BE12 Pro 自建 apk 源 <span class="badge badge-embed">可直接打开</span></a>
       </div>
       <div class="info">
         <ul>
           <li><span class="tag">路由器固件</span></li>
-          <li>2026-09-03</li>
+          <li>2026-10-03</li>
         </ul>
-        <p class="item-summary">为 EdgeLink EL-953（QCA9531 工业 4G 路由）做的 ImmortalWrt 21.02 自包含编译工程，把源码树全部收进仓库。</p>
-        <p class="item-note">已归档：本仓库已被 OpenWRT-25.12-QCA953X 继承，后续工作全部在那边进行，此处仅作历史参考。</p>
-        <p class="item-links"><a href="https://github.com/r3zound/immortalwrt-ath79" target="_blank" rel="noopener">GitHub 源码 →</a></p>
+        <p class="item-summary">只存构建产物、不存代码的自建 apk 源。由固件的 CI 每周一自动推送。解决的问题很具体：kmod 的 vermagic 绑死内核版本。</p>
+        <p class="item-links"><a href="https://github.com/r3zound/tenda-repo" target="_blank" rel="noopener">GitHub 源码 →</a></p>
       </div>
     </div>
-      <div class="item">
+      <div class="item filterable" data-tag="路由器固件" data-date="2026-10-02" data-hay="tenda be12 pro openwrt 定制固件 基于 openwrt 官方主线，为 tenda be12 pro（泰山 be7200 ultra）定制的主路由固件。仓库 readme 有 1000+ 行的完整构建与验收记录。 路由器固件 tenda-be12-pro-openwrt ">
       <div class="title">
-        <a href="/projects/2026-09-05/openwrt-25.12-qca953x/">EdgeLink EL-953 OpenWrt 25.12 固件工程</a>
+        <a href="/projects/2026-10-02/tenda-be12-pro-openwrt/">Tenda BE12 Pro OpenWrt 定制固件</a>
       </div>
       <div class="info">
         <ul>
           <li><span class="tag">路由器固件</span></li>
-          <li>2026-09-05</li>
+          <li>2026-10-02</li>
         </ul>
-        <p class="item-summary">上面那个 21.02 工程的正式继任者。基于 OpenWrt 25.12（内核 6.12），改成 overlay 形式构建，边刷边更新。</p>
-        <p class="item-links"><a href="https://github.com/r3zound/OpenWRT-25.12-QCA953X" target="_blank" rel="noopener">GitHub 源码 →</a></p>
+        <p class="item-summary">基于 OpenWrt 官方主线，为 Tenda BE12 Pro（泰山 BE7200 Ultra）定制的主路由固件。仓库 README 有 1000+ 行的完整构建与验收记录。</p>
+        <p class="item-links"><a href="https://github.com/r3zound/Tenda-BE12-Pro-OpenWrt" target="_blank" rel="noopener">GitHub 源码 →</a></p>
       </div>
     </div>
-      <div class="item">
+      <div class="item filterable" data-tag="路由器固件" data-date="2026-09-22" data-hay="v50 / mu3351 内置虚拟机 openwrt 固件构建 为 zte 中兴系 cpe（mu3351 / v50）内置 android 虚拟机里跑的 openwrt 构建固件包。github actions 自动编译，输出 1gb ext4 rootfs 发到 releases。 路由器固件 openwrt-v50-builder ">
+      <div class="title">
+        <a href="/projects/2026-09-22/openwrt-v50-builder/">V50 / MU3351 内置虚拟机 OpenWrt 固件构建 <span class="badge badge-embed">可直接打开</span></a>
+      </div>
+      <div class="info">
+        <ul>
+          <li><span class="tag">路由器固件</span></li>
+          <li>2026-09-22</li>
+        </ul>
+        <p class="item-summary">为 ZTE 中兴系 CPE（MU3351 / V50）内置 Android 虚拟机里跑的 OpenWrt 构建固件包。GitHub Actions 自动编译，输出 1GB ext4 rootfs 发到 Releases。</p>
+        <p class="item-links"><a href="https://github.com/r3zound/openwrt-v50-builder" target="_blank" rel="noopener">GitHub 源码 →</a></p>
+      </div>
+    </div>
+      <div class="item filterable" data-tag="实用工具" data-date="2026-09-15" data-hay="iptv 播放列表工具（windows 绿色版） 轻量级单用途命令行工具。抓公共 m3u 源，做 4 层过滤后交给 potplayer 播放。绿色版，拷到哪都能双击运行。 实用工具 iptv-desktop ">
+      <div class="title">
+        <a href="/projects/2026-09-15/iptv-desktop/">IPTV 播放列表工具（Windows 绿色版）</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li><span class="tag">实用工具</span></li>
+          <li>2026-09-15</li>
+        </ul>
+        <p class="item-summary">轻量级单用途命令行工具。抓公共 m3u 源，做 4 层过滤后交给 PotPlayer 播放。绿色版，拷到哪都能双击运行。</p>
+        <p class="item-links"><a href="https://github.com/r3zound/iptv-desktop" target="_blank" rel="noopener">GitHub 源码 →</a></p>
+      </div>
+    </div>
+      <div class="item filterable" data-tag="硬件改造" data-date="2026-09-07" data-hay="噢易乾 q100-e bios 改装 把政企淘汰的 h610 准系统小主机改造成能跑 14 代 i5-14400 的机器。闲鱼 350 元级别的 1.5l 准系统，tpv 代工，bios 是定制的。 硬件改造 os-easy-q100-e 过程记录：项目中途曾因“假设缺少 microcode”而走了一段弯路（尝试从第三方 bios 移植），后经原厂 bin 验证推翻，该教训已写进仓库文档。">
       <div class="title">
         <a href="/projects/2026-09-07/os-easy-q100-e/">噢易乾 Q100-E BIOS 改装</a>
       </div>
@@ -144,61 +147,81 @@
         <p class="item-links"><a href="https://github.com/r3zound/OS-EASY-Q100-E" target="_blank" rel="noopener">GitHub 源码 →</a></p>
       </div>
     </div>
-      <div class="item">
+      <div class="item filterable" data-tag="路由器固件" data-date="2026-09-05" data-hay="edgelink el-953 openwrt 25.12 固件工程 上面那个 21.02 工程的正式继任者。基于 openwrt 25.12（内核 6.12），改成 overlay 形式构建，边刷边更新。 路由器固件 openwrt-25.12-qca953x ">
       <div class="title">
-        <a href="/projects/2026-09-15/iptv-desktop/">IPTV 播放列表工具（Windows 绿色版）</a>
-      </div>
-      <div class="info">
-        <ul>
-          <li><span class="tag">实用工具</span></li>
-          <li>2026-09-15</li>
-        </ul>
-        <p class="item-summary">轻量级单用途命令行工具。抓公共 m3u 源，做 4 层过滤后交给 PotPlayer 播放。绿色版，拷到哪都能双击运行。</p>
-        <p class="item-links"><a href="https://github.com/r3zound/iptv-desktop" target="_blank" rel="noopener">GitHub 源码 →</a></p>
-      </div>
-    </div>
-      <div class="item">
-      <div class="title">
-        <a href="/projects/2026-09-22/openwrt-v50-builder/">V50 / MU3351 内置虚拟机 OpenWrt 固件构建 <span class="badge badge-embed">可直接打开</span></a>
+        <a href="/projects/2026-09-05/openwrt-25.12-qca953x/">EdgeLink EL-953 OpenWrt 25.12 固件工程</a>
       </div>
       <div class="info">
         <ul>
           <li><span class="tag">路由器固件</span></li>
-          <li>2026-09-22</li>
+          <li>2026-09-05</li>
         </ul>
-        <p class="item-summary">为 ZTE 中兴系 CPE（MU3351 / V50）内置 Android 虚拟机里跑的 OpenWrt 构建固件包。GitHub Actions 自动编译，输出 1GB ext4 rootfs 发到 Releases。</p>
-        <p class="item-links"><a href="https://github.com/r3zound/openwrt-v50-builder" target="_blank" rel="noopener">GitHub 源码 →</a></p>
+        <p class="item-summary">上面那个 21.02 工程的正式继任者。基于 OpenWrt 25.12（内核 6.12），改成 overlay 形式构建，边刷边更新。</p>
+        <p class="item-links"><a href="https://github.com/r3zound/OpenWRT-25.12-QCA953X" target="_blank" rel="noopener">GitHub 源码 →</a></p>
       </div>
     </div>
-      <div class="item">
+      <div class="item filterable" data-tag="路由器固件" data-date="2026-09-03" data-hay="edgelink el-953 immortalwrt 自包含编译（21.02） 为 edgelink el-953（qca9531 工业 4g 路由）做的 immortalwrt 21.02 自包含编译工程，把源码树全部收进仓库。 路由器固件 immortalwrt-ath79 已归档：本仓库已被 openwrt-25.12-qca953x 继承，后续工作全部在那边进行，此处仅作历史参考。">
       <div class="title">
-        <a href="/projects/2026-10-02/tenda-be12-pro-openwrt/">Tenda BE12 Pro OpenWrt 定制固件</a>
+        <a href="/projects/2026-09-03/immortalwrt-ath79/">EdgeLink EL-953 ImmortalWrt 自包含编译（21.02） <span class="badge badge-archived">已归档</span></a>
       </div>
       <div class="info">
         <ul>
           <li><span class="tag">路由器固件</span></li>
-          <li>2026-10-02</li>
+          <li>2026-09-03</li>
         </ul>
-        <p class="item-summary">基于 OpenWrt 官方主线，为 Tenda BE12 Pro（泰山 BE7200 Ultra）定制的主路由固件。仓库 README 有 1000+ 行的完整构建与验收记录。</p>
-        <p class="item-links"><a href="https://github.com/r3zound/Tenda-BE12-Pro-OpenWrt" target="_blank" rel="noopener">GitHub 源码 →</a></p>
+        <p class="item-summary">为 EdgeLink EL-953（QCA9531 工业 4G 路由）做的 ImmortalWrt 21.02 自包含编译工程，把源码树全部收进仓库。</p>
+        <p class="item-note">已归档：本仓库已被 OpenWRT-25.12-QCA953X 继承，后续工作全部在那边进行，此处仅作历史参考。</p>
+        <p class="item-links"><a href="https://github.com/r3zound/immortalwrt-ath79" target="_blank" rel="noopener">GitHub 源码 →</a></p>
       </div>
     </div>
-      <div class="item">
+      <div class="item filterable" data-tag="小游戏" data-date="2026-04-25" data-hay="坦克大战 tank battle html5 canvas 写的单文件坦克大战。整局游戏压在一个 12.7kb 的 index.html 里，没有任何外部依赖，双击就能玩。 小游戏 tank-battle ">
       <div class="title">
-        <a href="/projects/2026-10-03/tenda-repo/">Tenda BE12 Pro 自建 apk 源 <span class="badge badge-embed">可直接打开</span></a>
+        <a href="/projects/2026-04-25/tank-battle/">坦克大战 Tank Battle <span class="badge badge-embed">可直接打开</span></a>
       </div>
       <div class="info">
         <ul>
-          <li><span class="tag">路由器固件</span></li>
-          <li>2026-10-03</li>
+          <li><span class="tag">小游戏</span></li>
+          <li>2026-04-25</li>
         </ul>
-        <p class="item-summary">只存构建产物、不存代码的自建 apk 源。由固件的 CI 每周一自动推送。解决的问题很具体：kmod 的 vermagic 绑死内核版本。</p>
-        <p class="item-links"><a href="https://github.com/r3zound/tenda-repo" target="_blank" rel="noopener">GitHub 源码 →</a></p>
+        <p class="item-summary">HTML5 Canvas 写的单文件坦克大战。整局游戏压在一个 12.7KB 的 index.html 里，没有任何外部依赖，双击就能玩。</p>
+        <p class="item-links"><a href="https://github.com/r3zound/tank-battle" target="_blank" rel="noopener">GitHub 源码 →</a></p>
+      </div>
+    </div>
+      <div class="item filterable" data-tag="智能家居" data-date="2025-05-13" data-hay="home assistant 加载项库 自用的 home assistant 加载项集合。以 docker 静态镜像为主，把自己常用的插件收进来，并按国内网络环境做镜像加速。 智能家居 hass-addons ">
+      <div class="title">
+        <a href="/projects/2025-05-13/hass-addons/">Home Assistant 加载项库</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li><span class="tag">智能家居</span></li>
+          <li>2025-05-13</li>
+        </ul>
+        <p class="item-summary">自用的 Home Assistant 加载项集合。以 Docker 静态镜像为主，把自己常用的插件收进来，并按国内网络环境做镜像加速。</p>
+        <p class="item-links"><a href="https://github.com/r3zound/hass-addons" target="_blank" rel="noopener">GitHub 源码 →</a></p>
+      </div>
+    </div>
+      <div class="item filterable" data-tag="工具" data-date="2023-11-25" data-hay="openwrt 云编译仓库（构建模板） github actions 云编译 openwrt 固件的模板仓库。把 .config 推进仓库，在 actions 页面点一下就能出固件，不用自备编译机。 工具 openwrt-firmware 说明：这个仓库本质是构建模板，代码主体来自 p3terx 的开源模板，我这边做的是机型适配与流程调整，故放在自研区但标注清楚出处。">
+      <div class="title">
+        <a href="/projects/2023-11-25/openwrt-firmware/">OpenWrt 云编译仓库（构建模板）</a>
+      </div>
+      <div class="info">
+        <ul>
+          <li><span class="tag">工具</span></li>
+          <li>2023-11-25</li>
+        </ul>
+        <p class="item-summary">GitHub Actions 云编译 OpenWrt 固件的模板仓库。把 .config 推进仓库，在 Actions 页面点一下就能出固件，不用自备编译机。</p>
+        <p class="item-note">说明：这个仓库本质是构建模板，代码主体来自 P3TERX 的开源模板，我这边做的是机型适配与流程调整，故放在自研区但标注清楚出处。</p>
+        <p class="item-links"><a href="https://github.com/r3zound/openwrt-firmware" target="_blank" rel="noopener">GitHub 源码 →</a></p>
       </div>
     </div>
         </div>
+    <div class="fempty" id="fempty-own" hidden>
+      <p>没有匹配的项目。</p>
+      <p class="fempty-tip">试试别的关键词，或点「全部」取消分类筛选。</p>
+    </div>
     </div>
 </div>
+<script src="/assets/filter.js"></script>
 <div class="footer">
   <div class="info">
     <p>
@@ -211,6 +234,7 @@
     <p>&copy;2018-2026 r3zound &middot; 视觉外壳基于 hexo-themes-yearn</p>
   </div>
 </div>
+<script type="text/javascript" src="/assets/main-patch.js"></script>
 <script type="text/javascript" src="/js/main.js"></script>
 <script type="text/javascript" src="/js/my.js"></script>
 <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
