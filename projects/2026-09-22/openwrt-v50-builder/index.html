@@ -7,7 +7,7 @@
   <meta name="keywords" content="r3zound 的项目站, r3zound, GitHub, 开源项目">
   <meta name="description" content="为 ZTE 中兴系 CPE（MU3351 / V50）内置 Android 虚拟机里跑的 OpenWrt 构建固件包。GitHub Actions 自动编译，输出 1GB ext4 rootfs 发到 Releases。">
   <link rel="stylesheet" type="text/css" href="/style/main.css">
-  <link rel="stylesheet" type="text/css" href="/assets/site.css">
+  <link rel="stylesheet" type="text/css" href="/assets/site.css?v=cc775f8c">
   <link rel="shortcut icon" href="/images/favicon.ico" title="Favicon">
   <title>V50 / MU3351 内置虚拟机 OpenWrt 固件构建 — r3zound 的项目站</title>
 </head>
@@ -77,16 +77,19 @@
     <p>
       <a target="_blank" rel="noopener" href="https://github.com/r3zound">r3zound</a>
       &middot;
-      <a href="/">项目索引</a>
+      <a href="/">所有项目</a>
       &middot;
-      <a href="/third-party/">第三方合集</a>
+      <a href="/#own">自建项目</a>
+      &middot;
+      <a href="/third-party/">复刻项目</a>
     </p>
     <p>&copy;2018-2026 r3zound &middot; 视觉外壳基于 hexo-themes-yearn</p>
   </div>
 </div>
-<script type="text/javascript" src="/assets/main-patch.js"></script>
-<script type="text/javascript" src="/js/main.js"></script>
-<script type="text/javascript" src="/js/my.js"></script>
+<!-- 顺序是硬约束：main-patch.js 必须先于主题 main.js，否则整站脚本静默失效 -->
+<script type="text/javascript" src="/assets/main-patch.js?v=cc775f8c"></script>
+<script type="text/javascript" src="/js/main.js?v=cc775f8c"></script>
+<script type="text/javascript" src="/js/my.js?v=cc775f8c"></script>
 <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
 </body>
 </html>

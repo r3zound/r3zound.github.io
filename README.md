@@ -148,6 +148,11 @@
    （包括本站的 `filter.js`，表现为筛选器完全没反应）。
    `assets/main-patch.js` 会在 `main.js` 之前同步插入两个隐藏的同名占位元素解决。
    **如果以后调整脚本顺序，必须保证 `main-patch.js` 排在 `main.js` 前面**，否则整站脚本静默失效。
+6. **资源必须带版本号** —— 本站自有的 `site.css` / `filter.js` / `main-patch.js` / `my.js` / `main.js`
+   引用都带 `?v=<内容 md5 前 8 位>`（由 `build_site.py` 的 `asset_v()` 自动计算）。
+   GitHub Pages 的 `Cache-Control: max-age=600` 会让浏览器缓存旧资源，导致
+   「HTML 已更新、CSS 还是旧的 → 新元素完全没样式」。**改完样式重新生成时版本号会变，
+   浏览器必然重新拉取；不要手写死版本号，也不要去掉 `?v=`。**
 
 ---
 
